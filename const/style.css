@@ -1,0 +1,474 @@
+/* style.css */
+/* Inherit site theme via CSS variables if available */
+:root {
+  --tool-bg: var(--background, #f5f7fb);
+  --tool-card-bg: var(--card-bg, #ffffff);
+  --tool-text: var(--text-color, #111827);
+  --tool-muted: #6b7280;
+  --tool-border: #e5e7eb;
+  --tool-primary: var(--primary-color, #2563eb);
+  --tool-primary-soft: rgba(37, 99, 235, 0.08);
+  --tool-shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.08);
+  --tool-radius-lg: 16px;
+  --tool-radius-md: 12px;
+  --tool-radius-sm: 8px;
+  --tool-transition-fast: 0.2s ease;
+}
+
+.tool-page {
+  padding: 1.5rem 1rem 2rem;
+  background: var(--tool-bg);
+  color: var(--tool-text);
+}
+
+/* Layout */
+.tool-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.tool-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tool-right {
+  position: relative;
+}
+
+@media (min-width: 900px) {
+  .tool-layout {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: flex-start;
+  }
+
+  .tool-right {
+    position: sticky;
+    top: 90px;
+  }
+}
+
+/* Cards */
+.tool-card {
+  background: var(--tool-card-bg);
+  border-radius: var(--tool-radius-lg);
+  box-shadow: var(--tool-shadow-soft);
+  padding: 1.25rem 1.5rem;
+  transition: transform var(--tool-transition-fast), box-shadow var(--tool-transition-fast), background var(--tool-transition-fast);
+}
+
+.tool-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.12);
+}
+
+/* Header */
+.tool-header h1 {
+  font-size: 1.6rem;
+  margin-bottom: 0.25rem;
+}
+
+.tool-header p {
+  color: var(--tool-muted);
+  font-size: 0.95rem;
+}
+
+/* Shape cards */
+.shape-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.75rem;
+}
+
+.shape-card {
+  border-radius: var(--tool-radius-md);
+  border: 1px solid var(--tool-border);
+  padding: 0.6rem 0.7rem;
+  background: #f9fafb;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background var(--tool-transition-fast), border-color var(--tool-transition-fast), transform var(--tool-transition-fast), box-shadow var(--tool-transition-fast);
+}
+
+.shape-card .shape-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+}
+
+.shape-card.active {
+  background: var(--tool-primary-soft);
+  border-color: var(--tool-primary);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+}
+
+.shape-card.active .shape-icon {
+  background: var(--tool-primary);
+  color: #ffffff;
+}
+
+/* Material radio pills */
+.material-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.radio-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 999px;
+  border: 1px solid var(--tool-border);
+  padding: 0.35rem 0.7rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  background: #f9fafb;
+  transition: background var(--tool-transition-fast), border-color var(--tool-transition-fast);
+}
+
+.radio-pill input {
+  margin: 0;
+}
+
+.radio-pill:hover {
+  background: #eef2ff;
+  border-color: var(--tool-primary);
+}
+
+/* Units */
+.units-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .units-group {
+    flex-direction: row;
+  }
+}
+
+.units-block {
+  flex: 1;
+}
+
+.units-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--tool-muted);
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.segmented {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.segmented label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 999px;
+  border: 1px solid var(--tool-border);
+  padding: 0.25rem 0.6rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  background: #f9fafb;
+  transition: background var(--tool-transition-fast), border-color var(--tool-transition-fast);
+}
+
+.segmented input {
+  margin: 0;
+}
+
+.segmented label:hover {
+  background: #eef2ff;
+  border-color: var(--tool-primary);
+}
+
+/* Form groups */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.6rem;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--tool-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.form-group input {
+  border-radius: var(--tool-radius-sm);
+  border: 1px solid var(--tool-border);
+  padding: 0.45rem 0.6rem;
+  font-size: 0.9rem;
+  outline: none;
+  background: #ffffff;
+  transition: border-color var(--tool-transition-fast), box-shadow var(--tool-transition-fast), background var(--tool-transition-fast);
+}
+
+.form-group input:focus {
+  border-color: var(--tool-primary);
+  box-shadow: 0 0 0 1px var(--tool-primary-soft);
+}
+
+/* Help icon */
+.help-icon {
+  border-radius: 999px;
+  border: 1px solid var(--tool-border);
+  width: 18px;
+  height: 18px;
+  font-size: 0.7rem;
+  background: #f9fafb;
+  color: var(--tool-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: help;
+}
+
+/* Errors */
+.error {
+  font-size: 0.75rem;
+  color: #dc2626;
+}
+
+.form-group input.invalid {
+  border-color: #dc2626;
+}
+
+/* Shape inputs */
+.shape-input-group {
+  border-radius: var(--tool-radius-md);
+  border: 1px dashed var(--tool-border);
+  padding: 0.75rem 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background var(--tool-transition-fast), color var(--tool-transition-fast), box-shadow var(--tool-transition-fast), transform var(--tool-transition-fast), border-color var(--tool-transition-fast);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #e5e7eb, #f9fafb);
+  color: var(--tool-text);
+  border-color: #d1d5db;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.15);
+}
+
+/* Actions */
+.actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* Result card */
+.result-card {
+  position: relative;
+}
+
+.result-header h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+}
+
+.result-subtitle {
+  font-size: 0.85rem;
+  color: var(--tool-muted);
+}
+
+.result-body {
+  margin-top: 0.75rem;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.result-row span:last-child {
+  font-weight: 600;
+}
+
+.result-row.highlight span:last-child {
+  color: var(--tool-primary);
+}
+
+.result-empty {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--tool-muted);
+}
+
+/* Reference tables */
+.ref-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.ref-table th,
+.ref-table td {
+  border-bottom: 1px solid var(--tool-border);
+  padding: 0.35rem 0.3rem;
+  text-align: left;
+}
+
+.ref-table th {
+  font-weight: 600;
+  color: var(--tool-muted);
+  background: #f9fafb;
+}
+
+/* Formulas */
+.formulas-card {
+  margin-top: 0.75rem;
+}
+
+.formula-toggle {
+  width: 100%;
+  border: none;
+  background: transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.formula-icon {
+  font-size: 0.8rem;
+  color: var(--tool-muted);
+  transition: transform var(--tool-transition-fast);
+}
+
+.formula-content {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--tool-muted);
+}
+
+.formula-content h3 {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+/* Print layout */
+@media print {
+
+  /* Clean background */
+  body {
+    background: #ffffff !important;
+  }
+
+  .tool-page {
+    padding: 0 !important;
+  }
+
+  /* ⭐ SHOW INPUT PANEL */
+  .tool-left {
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  /* ⭐ SHOW ALL INPUT CARDS */
+  .tool-left .tool-card {
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  /* ⭐ SHOW RESULT PANEL */
+  .tool-right .result-card {
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  /* ❌ HIDE OTHER RIGHT‑SIDE CARDS (tables, formulas, etc.) */
+  .tool-right .tool-card:not(.result-card) {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* ❌ HIDE ACTION BUTTONS */
+  .actions-row,
+  #resetBtn,
+  #copyBtn,
+  #printBtn {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* ❌ HIDE REFERENCE TABLES */
+  #densityTableTitle,
+  #barWeightsTitle,
+  .ref-table {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* ❌ HIDE FORMULAS */
+  .formulas-card {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* ❌ HIDE WEBSITE HEADER & FOOTER */
+  header,
+  .header,
+  .header-inner,
+  footer,
+  .footer,
+  .footer-inner,
+  .footer-bottom {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* Clean print layout */
+  .tool-right {
+    position: static !important;
+  }
+
+  .tool-card {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0.5rem 0.75rem !important;
+  }
+}
+

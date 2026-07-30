@@ -1,0 +1,860 @@
+<!-- steel-weight.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Steel Weight Calculator</title>
+  <meta name="description" content="Calculate the weight of steel bars, pipes, sheets, plates, angles, channels, beams and other structural steel instantly." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="header sticky">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">BizTools <span>Hub</span></a>
+
+      <nav class="nav" aria-label="Main navigation">
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="../index.html" class="active">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../tools.html">Tools</a></li>
+          <li><a href="../blog.html">Blog</a></li>
+          <li><a href="../faq.html">FAQ</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <div class="search-wrapper">
+          <input type="search" id="globalSearch" placeholder="Search tools, articles..." aria-label="Search" />
+        </div>
+        <button id="darkModeToggle" class="btn-icon" aria-label="Toggle dark mode">
+          🌙
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Breadcrumbs -->
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <div class="container">
+      <a href="index.html">Home</a> / <span>Welcome</span>
+    </div>
+  </nav>
+
+
+  <main class="tool-page" aria-labelledby="steelWeightTitle">
+    <section class="tool-layout">
+      <!-- LEFT: INPUT PANEL -->
+      <div class="tool-left">
+        <header class="tool-header">
+          <h1 id="steelWeightTitle">Steel Weight Calculator</h1>
+          <p>Calculate the weight of steel bars, pipes, sheets, plates, angles, channels, beams and other structural steel instantly.</p>
+        </header>
+
+        <!-- Shape selection -->
+        <section class="tool-card" aria-labelledby="shapeTitle">
+          <h2 id="shapeTitle">Select Steel Shape</h2>
+          <div class="shape-grid" role="radiogroup" aria-label="Steel shape">
+            <button class="shape-card active" data-shape="round" aria-pressed="true">
+              <span class="shape-icon">●</span>
+              <span class="shape-label">Round Bar</span>
+            </button>
+            <button class="shape-card" data-shape="square">
+              <span class="shape-icon">▢</span>
+              <span class="shape-label">Square Bar</span>
+            </button>
+            <button class="shape-card" data-shape="flat">
+              <span class="shape-icon">▭</span>
+              <span class="shape-label">Flat Bar</span>
+            </button>
+            <button class="shape-card" data-shape="hex">
+              <span class="shape-icon">⬡</span>
+              <span class="shape-label">Hex Bar</span>
+            </button>
+            <button class="shape-card" data-shape="plate">
+              <span class="shape-icon">▤</span>
+              <span class="shape-label">Steel Plate</span>
+            </button>
+            <button class="shape-card" data-shape="sheet">
+              <span class="shape-icon">▥</span>
+              <span class="shape-label">Steel Sheet</span>
+            </button>
+            <button class="shape-card" data-shape="pipe">
+              <span class="shape-icon">◎</span>
+              <span class="shape-label">Pipe</span>
+            </button>
+            <button class="shape-card" data-shape="tube-square">
+              <span class="shape-icon">⬛</span>
+              <span class="shape-label">Tube (Square)</span>
+            </button>
+            <button class="shape-card" data-shape="tube-rect">
+              <span class="shape-icon">▯</span>
+              <span class="shape-label">Tube (Rectangle)</span>
+            </button>
+            <button class="shape-card" data-shape="angle">
+              <span class="shape-icon">∟</span>
+              <span class="shape-label">Angle</span>
+            </button>
+            <button class="shape-card" data-shape="channel">
+              <span class="shape-icon">⌶</span>
+              <span class="shape-label">Channel</span>
+            </button>
+            <button class="shape-card" data-shape="ibeam">
+              <span class="shape-icon">I</span>
+              <span class="shape-label">I Beam</span>
+            </button>
+            <button class="shape-card" data-shape="hbeam">
+              <span class="shape-icon">H</span>
+              <span class="shape-label">H Beam</span>
+            </button>
+            <button class="shape-card" data-shape="tsection">
+              <span class="shape-icon">T</span>
+              <span class="shape-label">T Section</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- Material -->
+        <section class="tool-card" aria-labelledby="materialTitle">
+          <h2 id="materialTitle">Material</h2>
+          <div class="material-group" role="radiogroup" aria-label="Material">
+            <label class="radio-pill">
+              <input type="radio" name="material" value="7850" checked />
+              <span>Carbon Steel (7850 kg/m³)</span>
+            </label>
+            <label class="radio-pill">
+              <input type="radio" name="material" value="7930" />
+              <span>Stainless Steel 304 (7930)</span>
+            </label>
+            <label class="radio-pill">
+              <input type="radio" name="material" value="8000" />
+              <span>Stainless Steel 316 (8000)</span>
+            </label>
+            <label class="radio-pill">
+              <input type="radio" name="material" value="7850" />
+              <span>Mild Steel (7850)</span>
+            </label>
+            <label class="radio-pill">
+              <input type="radio" name="material" value="custom" />
+              <span>Custom Density</span>
+            </label>
+          </div>
+          <div class="form-group density-custom" id="densityCustomWrapper" hidden>
+            <label for="customDensity">
+              Density (kg/m³)
+              <button type="button" class="help-icon" aria-label="Density help" title="Enter material density in kg per cubic meter.">?</button>
+            </label>
+            <input type="number" id="customDensity" min="0" step="0.01" />
+            <small class="error" data-error-for="customDensity"></small>
+          </div>
+        </section>
+
+        <!-- Units -->
+        <section class="tool-card" aria-labelledby="unitsTitle">
+          <h2 id="unitsTitle">Units</h2>
+          <div class="units-group">
+            <div class="units-block">
+              <span class="units-label">Metric</span>
+              <div class="segmented" role="radiogroup" aria-label="Metric units">
+                <label>
+                  <input type="radio" name="unit" value="mm" checked />
+                  <span>mm</span>
+                </label>
+                <label>
+                  <input type="radio" name="unit" value="cm" />
+                  <span>cm</span>
+                </label>
+                <label>
+                  <input type="radio" name="unit" value="m" />
+                  <span>meter</span>
+                </label>
+              </div>
+            </div>
+            <div class="units-block">
+              <span class="units-label">Imperial</span>
+              <div class="segmented" role="radiogroup" aria-label="Imperial units">
+                <label>
+                  <input type="radio" name="unit" value="inch" />
+                  <span>inch</span>
+                </label>
+                <label>
+                  <input type="radio" name="unit" value="ft" />
+                  <span>feet</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Shape-specific inputs -->
+        <section class="tool-card" aria-labelledby="inputsTitle">
+          <h2 id="inputsTitle">Dimensions</h2>
+          <div id="shapeInputs">
+            <!-- Round Bar -->
+            <div class="shape-input-group" data-shape="round">
+              <div class="form-group">
+                <label for="roundDiameter">
+                  Diameter
+                  <button type="button" class="help-icon" title="The outside diameter of the steel bar.">?</button>
+                </label>
+                <input type="number" id="roundDiameter" min="0" step="0.01" />
+                <small class="error" data-error-for="roundDiameter"></small>
+              </div>
+              <div class="form-group">
+                <label for="roundLength">
+                  Length
+                  <button type="button" class="help-icon" title="The length of the bar.">?</button>
+                </label>
+                <input type="number" id="roundLength" min="0" step="0.01" />
+                <small class="error" data-error-for="roundLength"></small>
+              </div>
+              <div class="form-group">
+                <label for="roundQty">
+                  Quantity
+                  <button type="button" class="help-icon" title="Number of pieces.">?</button>
+                </label>
+                <input type="number" id="roundQty" min="1" step="1" value="1" />
+                <small class="error" data-error-for="roundQty"></small>
+              </div>
+            </div>
+
+            <!-- Pipe -->
+            <div class="shape-input-group" data-shape="pipe" hidden>
+              <div class="form-group">
+                <label for="pipeOD">
+                  Outer Diameter
+                  <button type="button" class="help-icon" title="Outside diameter of the pipe.">?</button>
+                </label>
+                <input type="number" id="pipeOD" min="0" step="0.01" />
+                <small class="error" data-error-for="pipeOD"></small>
+              </div>
+              <div class="form-group">
+                <label for="pipeThickness">
+                  Wall Thickness
+                  <button type="button" class="help-icon" title="Wall thickness of the pipe.">?</button>
+                </label>
+                <input type="number" id="pipeThickness" min="0" step="0.01" />
+                <small class="error" data-error-for="pipeThickness"></small>
+              </div>
+              <div class="form-group">
+                <label for="pipeLength">
+                  Length
+                  <button type="button" class="help-icon" title="Length of the pipe.">?</button>
+                </label>
+                <input type="number" id="pipeLength" min="0" step="0.01" />
+                <small class="error" data-error-for="pipeLength"></small>
+              </div>
+              <div class="form-group">
+                <label for="pipeQty">
+                  Quantity
+                  <button type="button" class="help-icon" title="Number of pieces.">?</button>
+                </label>
+                <input type="number" id="pipeQty" min="1" step="1" value="1" />
+                <small class="error" data-error-for="pipeQty"></small>
+              </div>
+            </div>
+
+            <!-- Plate -->
+            <div class="shape-input-group" data-shape="plate" hidden>
+              <div class="form-group">
+                <label for="plateLength">
+                  Length
+                  <button type="button" class="help-icon" title="Length of the plate.">?</button>
+                </label>
+                <input type="number" id="plateLength" min="0" step="0.01" />
+                <small class="error" data-error-for="plateLength"></small>
+              </div>
+              <div class="form-group">
+                <label for="plateWidth">
+                  Width
+                  <button type="button" class="help-icon" title="Width of the plate.">?</button>
+                </label>
+                <input type="number" id="plateWidth" min="0" step="0.01" />
+                <small class="error" data-error-for="plateWidth"></small>
+              </div>
+              <div class="form-group">
+                <label for="plateThickness">
+                  Thickness
+                  <button type="button" class="help-icon" title="Thickness of the plate.">?</button>
+                </label>
+                <input type="number" id="plateThickness" min="0" step="0.01" />
+                <small class="error" data-error-for="plateThickness"></small>
+              </div>
+              <div class="form-group">
+                <label for="plateQty">
+                  Quantity
+                  <button type="button" class="help-icon" title="Number of pieces.">?</button>
+                </label>
+                <input type="number" id="plateQty" min="1" step="1" value="1" />
+                <small class="error" data-error-for="plateQty"></small>
+              </div>
+            </div>
+
+            <!-- Square Bar -->
+            <div class="shape-input-group" data-shape="square" hidden>
+              <div class="form-group">
+                <label for="squareSide">
+                  Side
+                  <button type="button" class="help-icon" title="Side length of the square bar.">?</button>
+                </label>
+                <input type="number" id="squareSide" min="0" step="0.01" />
+                <small class="error" data-error-for="squareSide"></small>
+              </div>
+              <div class="form-group">
+                <label for="squareLength">
+                  Length
+                  <button type="button" class="help-icon" title="Length of the bar.">?</button>
+                </label>
+                <input type="number" id="squareLength" min="0" step="0.01" />
+                <small class="error" data-error-for="squareLength"></small>
+              </div>
+              <div class="form-group">
+                <label for="squareQty">
+                  Quantity
+                  <button type="button" class="help-icon" title="Number of pieces.">?</button>
+                </label>
+                <input type="number" id="squareQty" min="1" step="1" value="1" />
+                <small class="error" data-error-for="squareQty"></small>
+              </div>
+            </div>
+
+            <!-- Flat Bar -->
+            <div class="shape-input-group" data-shape="flat" hidden>
+              <div class="form-group">
+                <label for="flatWidth">
+                  Width
+                  <button type="button" class="help-icon" title="Width of the flat bar.">?</button>
+                </label>
+                <input type="number" id="flatWidth" min="0" step="0.01" />
+                <small class="error" data-error-for="flatWidth"></small>
+              </div>
+              <div class="form-group">
+                <label for="flatThickness">
+                  Thickness
+                  <button type="button" class="help-icon" title="Thickness of the flat bar.">?</button>
+                </label>
+                <input type="number" id="flatThickness" min="0" step="0.01" />
+                <small class="error" data-error-for="flatThickness"></small>
+              </div>
+              <div class="form-group">
+                <label for="flatLength">
+                  Length
+                  <button type="button" class="help-icon" title="Length of the bar.">?</button>
+                </label>
+                <input type="number" id="flatLength" min="0" step="0.01" />
+                <small class="error" data-error-for="flatLength"></small>
+              </div>
+              <div class="form-group">
+                <label for="flatQty">
+                  Quantity
+                  <button type="button" class="help-icon" title="Number of pieces.">?</button>
+                </label>
+                <input type="number" id="flatQty" min="1" step="1" value="1" />
+                <small class="error" data-error-for="flatQty"></small>
+              </div>
+            </div>
+
+            <!-- Tube Square -->
+            <div class="shape-input-group" data-shape="tube-square" hidden>
+              <div class="form-group">
+                <label for="tubeSqOuter">
+                  Outer Side
+                  <button type="button" class="help-icon" title="Outer side of the square tube.">?</button>
+                </label>
+                <input type="number" id="tubeSqOuter" min="0" step="0.01" />
+                <small class="error" data-error-for="tubeSqOuter"></small>
+              </div>
+              <div class="form-group">
+                <label for="tubeSqThickness">
+                  Wall Thickness
+                  <button type="button" class="help-icon" title="Wall thickness of the tube.">?</button>
+                </label>
+                <input type="number" id="tubeSqThickness" min="0" step="0.01" />
+                <small class="error" data-error-for="tubeSqThickness"></small>
+              </div>
+              <div class="form-group">
+                <label for="tubeSqLength">
+                  Length
+                  <button type="button" class="help-icon" title="Length of the tube.">?</button>
+                </label>
+                <input type="number" id="tubeSqLength" min="0" step="0.01" />
+                <small class="error" data-error-for="tubeSqLength"></small>
+              </div>
+              <div class="form-group">
+                <label for="tubeSqQty">
+                  Quantity
+                  <button type="button" class="help-icon" title="Number of pieces.">?</button>
+                </label>
+                <input type="number" id="tubeSqQty" min="1" step="1" value="1" />
+                <small class="error" data-error-for="tubeSqQty"></small>
+              </div>
+            </div>
+
+            <!-- Tube Rect -->
+            <div class="shape-input-group" data-shape="tube-rect" hidden>
+              <div class="form-group">
+                <label for="tubeRectWidth">
+                  Outer Width
+                  <button type="button" class="help-icon" title="Outer width of the rectangular tube.">?</button>
+                </label>
+                <input type="number" id="tubeRectWidth" min="0" step="0.01" />
+                <small class="error" data-error-for="tubeRectWidth"></small>
+              </div>
+              <div class="form-group">
+                <label for="tubeRectHeight">
+                  Outer Height
+                  <button type="button" class="help-icon" title="Outer height of the rectangular tube.">?</button>
+                </label>
+                <input type="number" id="tubeRectHeight" min="0" step="0.01" />
+                <small class="error" data-error-for="tubeRectHeight"></small>
+              </div>
+              <div class="form-group">
+                <label for="tubeRectThickness">
+                  Wall Thickness
+                  <button type="button" class="help-icon" title="Wall thickness of the tube.">?</button>
+                </label>
+                <input type="number" id="tubeRectThickness" min="0" step="0.01" />
+                <small class="error" data-error-for="tubeRectThickness"></small>
+              </div>
+              <div class="form-group">
+                <label for="tubeRectLength">
+                  Length
+                  <button type="button" class="help-icon" title="Length of the tube.">?</button>
+                </label>
+                <input type="number" id="tubeRectLength" min="0" step="0.01" />
+                <small class="error" data-error-for="tubeRectLength"></small>
+              </div>
+              <div class="form-group">
+                <label for="tubeRectQty">
+                  Quantity
+                  <button type="button" class="help-icon" title="Number of pieces.">?</button>
+                </label>
+                <input type="number" id="tubeRectQty" min="1" step="1" value="1" />
+                <small class="error" data-error-for="tubeRectQty"></small>
+              </div>
+            </div>
+
+            <!-- Angle (approx) -->
+            <div class="shape-input-group" data-shape="angle" hidden>
+              <div class="form-group">
+                <label for="angleLegA">
+                  Leg A
+                  <button type="button" class="help-icon" title="Length of first leg of angle.">?</button>
+                </label>
+                <input type="number" id="angleLegA" min="0" step="0.01" />
+                <small class="error" data-error-for="angleLegA"></small>
+              </div>
+              <div class="form-group">
+                <label for="angleLegB">
+                  Leg B
+                  <button type="button" class="help-icon" title="Length of second leg of angle.">?</button>
+                </label>
+                <input type="number" id="angleLegB" min="0" step="0.01" />
+                <small class="error" data-error-for="angleLegB"></small>
+              </div>
+              <div class="form-group">
+                <label for="angleThickness">
+                  Thickness
+                  <button type="button" class="help-icon" title="Thickness of angle.">?</button>
+                </label>
+                <input type="number" id="angleThickness" min="0" step="0.01" />
+                <small class="error" data-error-for="angleThickness"></small>
+              </div>
+              <div class="form-group">
+                <label for="angleLength">
+                  Length
+                  <button type="button" class="help-icon" title="Length of angle.">?</button>
+                </label>
+                <input type="number" id="angleLength" min="0" step="0.01" />
+                <small class="error" data-error-for="angleLength"></small>
+              </div>
+              <div class="form-group">
+                <label for="angleQty">
+                  Quantity
+                  <button type="button" class="help-icon" title="Number of pieces.">?</button>
+                </label>
+                <input type="number" id="angleQty" min="1" step="1" value="1" />
+                <small class="error" data-error-for="angleQty"></small>
+              </div>
+            </div>
+
+            <!-- Channel (approx) -->
+            <div class="shape-input-group" data-shape="channel" hidden>
+              <div class="form-group">
+                <label for="channelWidth">
+                  Flange Width
+                  <button type="button" class="help-icon" title="Width of channel flange.">?</button>
+                </label>
+                <input type="number" id="channelWidth" min="0" step="0.01" />
+                <small class="error" data-error-for="channelWidth"></small>
+              </div>
+              <div class="form-group">
+                <label for="channelHeight">
+                  Web Height
+                  <button type="button" class="help-icon" title="Height of channel web.">?</button>
+                </label>
+                <input type="number" id="channelHeight" min="0" step="0.01" />
+                <small class="error" data-error-for="channelHeight"></small>
+              </div>
+              <div class="form-group">
+                <label for="channelThickness">
+                  Thickness
+                  <button type="button" class="help-icon" title="Average thickness.">?</button>
+                </label>
+                <input type="number" id="channelThickness" min="0" step="0.01" />
+                <small class="error" data-error-for="channelThickness"></small>
+              </div>
+              <div class="form-group">
+                <label for="channelLength">
+                  Length
+                  <button type="button" class="help-icon" title="Length of channel.">?</button>
+                </label>
+                <input type="number" id="channelLength" min="0" step="0.01" />
+                <small class="error" data-error-for="channelLength"></small>
+              </div>
+              <div class="form-group">
+                <label for="channelQty">
+                  Quantity
+                  <button type="button" class="help-icon" title="Number of pieces.">?</button>
+                </label>
+                <input type="number" id="channelQty" min="1" step="1" value="1" />
+                <small class="error" data-error-for="channelQty"></small>
+              </div>
+            </div>
+
+            <!-- I Beam (approx) -->
+            <div class="shape-input-group" data-shape="ibeam" hidden>
+              <div class="form-group">
+                <label for="ibeamFlangeWidth">
+                  Flange Width
+                  <button type="button" class="help-icon" title="Width of I-beam flange.">?</button>
+                </label>
+                <input type="number" id="ibeamFlangeWidth" min="0" step="0.01" />
+                <small class="error" data-error-for="ibeamFlangeWidth"></small>
+              </div>
+              <div class="form-group">
+                <label for="ibeamHeight">
+                  Beam Height
+                  <button type="button" class="help-icon" title="Total height of I-beam.">?</button>
+                </label>
+                <input type="number" id="ibeamHeight" min="0" step="0.01" />
+                <small class="error" data-error-for="ibeamHeight"></small>
+              </div>
+              <div class="form-group">
+                <label for="ibeamThickness">
+                  Thickness
+                  <button type="button" class="help-icon" title="Average thickness.">?</button>
+                </label>
+                <input type="number" id="ibeamThickness" min="0" step="0.01" />
+                <small class="error" data-error-for="ibeamThickness"></small>
+              </div>
+              <div class="form-group">
+                <label for="ibeamLength">
+                  Length
+                  <button type="button" class="help-icon" title="Length of beam.">?</button>
+                </label>
+                <input type="number" id="ibeamLength" min="0" step="0.01" />
+                <small class="error" data-error-for="ibeamLength"></small>
+              </div>
+              <div class="form-group">
+                <label for="ibeamQty">
+                  Quantity
+                  <button type="button" class="help-icon" title="Number of pieces.">?</button>
+                </label>
+                <input type="number" id="ibeamQty" min="1" step="1" value="1" />
+                <small class="error" data-error-for="ibeamQty"></small>
+              </div>
+            </div>
+
+            <!-- H Beam (approx) -->
+            <div class="shape-input-group" data-shape="hbeam" hidden>
+              <div class="form-group">
+                <label for="hbeamFlangeWidth">
+                  Flange Width
+                  <button type="button" class="help-icon" title="Width of H-beam flange.">?</button>
+                </label>
+                <input type="number" id="hbeamFlangeWidth" min="0" step="0.01" />
+                <small class="error" data-error-for="hbeamFlangeWidth"></small>
+              </div>
+              <div class="form-group">
+                <label for="hbeamHeight">
+                  Beam Height
+                  <button type="button" class="help-icon" title="Total height of H-beam.">?</button>
+                </label>
+                <input type="number" id="hbeamHeight" min="0" step="0.01" />
+                <small class="error" data-error-for="hbeamHeight"></small>
+              </div>
+              <div class="form-group">
+                <label for="hbeamThickness">
+                  Thickness
+                  <button type="button" class="help-icon" title="Average thickness.">?</button>
+                </label>
+                <input type="number" id="hbeamThickness" min="0" step="0.01" />
+                <small class="error" data-error-for="hbeamThickness"></small>
+              </div>
+              <div class="form-group">
+                <label for="hbeamLength">
+                  Length
+                  <button type="button" class="help-icon" title="Length of beam.">?</button>
+                </label>
+                <input type="number" id="hbeamLength" min="0" step="0.01" />
+                <small class="error" data-error-for="hbeamLength"></small>
+              </div>
+              <div class="form-group">
+                <label for="hbeamQty">
+                  Quantity
+                  <button type="button" class="help-icon" title="Number of pieces.">?</button>
+                </label>
+                <input type="number" id="hbeamQty" min="1" step="1" value="1" />
+                <small class="error" data-error-for="hbeamQty"></small>
+              </div>
+            </div>
+
+            <!-- T Section (approx) -->
+            <div class="shape-input-group" data-shape="tsection" hidden>
+              <div class="form-group">
+                <label for="tWidth">
+                  Flange Width
+                  <button type="button" class="help-icon" title="Width of T-section flange.">?</button>
+                </label>
+                <input type="number" id="tWidth" min="0" step="0.01" />
+                <small class="error" data-error-for="tWidth"></small>
+              </div>
+              <div class="form-group">
+                <label for="tHeight">
+                  Section Height
+                  <button type="button" class="help-icon" title="Total height of T-section.">?</button>
+                </label>
+                <input type="number" id="tHeight" min="0" step="0.01" />
+                <small class="error" data-error-for="tHeight"></small>
+              </div>
+              <div class="form-group">
+                <label for="tThickness">
+                  Thickness
+                  <button type="button" class="help-icon" title="Average thickness.">?</button>
+                </label>
+                <input type="number" id="tThickness" min="0" step="0.01" />
+                <small class="error" data-error-for="tThickness"></small>
+              </div>
+              <div class="form-group">
+                <label for="tLength">
+                  Length
+                  <button type="button" class="help-icon" title="Length of section.">?</button>
+                </label>
+                <input type="number" id="tLength" min="0" step="0.01" />
+                <small class="error" data-error-for="tLength"></small>
+              </div>
+              <div class="form-group">
+                <label for="tQty">
+                  Quantity
+                  <button type="button" class="help-icon" title="Number of pieces.">?</button>
+                </label>
+                <input type="number" id="tQty" min="1" step="1" value="1" />
+                <small class="error" data-error-for="tQty"></small>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Cost -->
+        <section class="tool-card" aria-labelledby="costTitle">
+          <h2 id="costTitle">Material Cost (Optional)</h2>
+          <div class="form-group">
+            <label for="pricePerKg">
+              Price per kg
+              <button type="button" class="help-icon" title="Enter material price per kilogram.">?</button>
+            </label>
+            <input type="number" id="pricePerKg" min="0" step="0.01" />
+            <small class="error" data-error-for="pricePerKg"></small>
+          </div>
+        </section>
+
+        <!-- Actions -->
+        <section class="tool-card">
+          <h2>Actions</h2>
+          <div class="actions-row">
+            <button type="button" class="btn btn-secondary" id="resetBtn">Reset</button>
+            <button type="button" class="btn btn-secondary" id="copyBtn">Copy Result</button>
+            <button type="button" class="btn btn-secondary" id="printBtn">Print / PDF</button>
+          </div>
+        </section>
+      </div>
+
+      <!-- RIGHT: RESULT PANEL -->
+      <div class="tool-right">
+        <section class="tool-card result-card" aria-live="polite">
+          <header class="result-header">
+            <h2>Results</h2>
+            <p class="result-subtitle">Live calculation updates as you type.</p>
+          </header>
+
+          <div class="result-body">
+            <div class="result-row">
+              <span>Shape</span>
+              <span id="resultShape">Round Bar</span>
+            </div>
+            <div class="result-row">
+              <span>Density Used</span>
+              <span id="resultDensity">7850 kg/m³</span>
+            </div>
+            <div class="result-row">
+              <span>Unit</span>
+              <span id="resultUnit">mm</span>
+            </div>
+            <div class="result-row highlight">
+              <span>Weight per Piece</span>
+              <span id="resultWeightPerPiece">0.000 kg</span>
+            </div>
+            <div class="result-row highlight">
+              <span>Total Weight</span>
+              <span id="resultTotalWeight">0.000 kg</span>
+            </div>
+            <div class="result-row">
+              <span>Volume per Piece</span>
+              <span id="resultVolume">0.000 m³</span>
+            </div>
+            <div class="result-row">
+              <span>Cost per Piece</span>
+              <span id="resultCostPerPiece">0.00</span>
+            </div>
+            <div class="result-row">
+              <span>Total Cost</span>
+              <span id="resultTotalCost">0.00</span>
+            </div>
+          </div>
+
+          <div class="result-empty" id="resultEmpty">
+            Start typing dimensions to see live steel weight calculations.
+          </div>
+        </section>
+
+        <!-- Reference tables -->
+        <section class="tool-card" aria-labelledby="densityTableTitle">
+          <h2 id="densityTableTitle">Common Steel Densities</h2>
+          <table class="ref-table">
+            <thead>
+              <tr>
+                <th>Material</th>
+                <th>Density (kg/m³)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Carbon Steel</td><td>7850</td></tr>
+              <tr><td>Stainless Steel 304</td><td>7930</td></tr>
+              <tr><td>Stainless Steel 316</td><td>8000</td></tr>
+              <tr><td>Aluminum</td><td>2700</td></tr>
+              <tr><td>Copper</td><td>8960</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="tool-card" aria-labelledby="barWeightsTitle">
+          <h2 id="barWeightsTitle">Common Bar Weights (Approximate)</h2>
+          <table class="ref-table">
+            <thead>
+              <tr>
+                <th>Diameter (mm)</th>
+                <th>Weight (kg/m)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>6</td><td>0.222</td></tr>
+              <tr><td>8</td><td>0.395</td></tr>
+              <tr><td>10</td><td>0.617</td></tr>
+              <tr><td>12</td><td>0.888</td></tr>
+              <tr><td>16</td><td>1.58</td></tr>
+              <tr><td>20</td><td>2.47</td></tr>
+              <tr><td>25</td><td>3.85</td></tr>
+              <tr><td>32</td><td>6.31</td></tr>
+              <tr><td>40</td><td>9.87</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Formulas -->
+        <section class="tool-card formulas-card">
+          <button class="formula-toggle" type="button" aria-expanded="false" aria-controls="formulaContent">
+            <span>Engineering Formulas</span>
+            <span class="formula-icon">▼</span>
+          </button>
+          <div id="formulaContent" class="formula-content" hidden>
+            <h3>Round Bar</h3>
+            <p>Weight = π × d² / 4 × Length × Density</p>
+
+            <h3>Pipe</h3>
+            <p>Weight = π × (OD² − ID²) / 4 × Length × Density</p>
+
+            <h3>Plate / Sheet</h3>
+            <p>Weight = Length × Width × Thickness × Density</p>
+
+            <h3>Square Bar</h3>
+            <p>Weight = Side² × Length × Density</p>
+
+            <h3>Rectangular Bar / Tube</h3>
+            <p>Weight = Width × Height × Length × Density (minus hollow core for tubes)</p>
+
+            <h3>Angle (Approximation)</h3>
+            <p>Weight ≈ (Leg A + Leg B − Thickness) × Thickness × Length × Density</p>
+
+            <h3>Channel / Beam (Approximation)</h3>
+            <p>Weight ≈ Cross-sectional area × Length × Density, where area is estimated from flange and web dimensions.</p>
+
+            <p>All dimensions are converted to meters before calculation.</p>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+<!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-column">
+        <h3>BizTools Hub</h3>
+        <p>Professional Business, HR, Finance & Engineering Tools.</p>
+      </div>
+      <div class="footer-column">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="tools.html">Tools</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Policies</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms & Conditions</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
+          <li><a href="cookies.html">Cookie Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Newsletter</h4>
+        <form id="footerNewsletterForm">
+          <input type="email" name="email" placeholder="Email address" required />
+          <button type="submit" class="btn-primary btn-small">Subscribe</button>
+        </form>
+        <div class="footer-social">
+          <a href="#" aria-label="Twitter">X</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Facebook">f</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> BizTools Hub. All rights reserved.</p>
+    </div>
+  </footer>
+<script src="../js/script.js"></script>
+  <script src="steel-weight.js"></script>
+</body>
+</html>
