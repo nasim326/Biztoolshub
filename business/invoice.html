@@ -1,0 +1,543 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Invoice Generator - BizTools Hub</title>
+  <meta name="description" content="Modern invoice generator with live preview, local storage, and print-ready layout." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body class="light">
+ <!-- Header -->
+  <header class="header sticky">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">BizTools <span>Hub</span></a>
+
+      <nav class="nav" aria-label="Main navigation">
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="../index.html" class="active">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../tools.html">Tools</a></li>
+          <li><a href="../blog.html">Blog</a></li>
+          <li><a href="../faq.html">FAQ</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <div class="search-wrapper">
+          <input type="search" id="globalSearch" placeholder="Search tools, articles..." aria-label="Search" />
+        </div>
+        <button id="darkModeToggle" class="btn-icon" aria-label="Toggle dark mode">
+          🌙
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Breadcrumbs -->
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <div class="container">
+      <a href="index.html">Home</a> / <span>Welcome</span>
+    </div>
+  </nav>
+
+
+  <main class="invoice-page">
+    <section class="invoice-layout">
+      <!-- LEFT PANEL -->
+      <div class="invoice-left">
+        <header class="invoice-header">
+          <h1>Invoice Generator</h1>
+          <p>Create professional invoices with live preview and print-ready layout.</p>
+        </header>
+
+        <div class="invoice-card">
+          <h2>Invoice Information</h2>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="invoiceNumber">Invoice Number</label>
+              <input type="text" id="invoiceNumber" />
+              <small class="error" data-error-for="invoiceNumber"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="invoiceDate">Invoice Date</label>
+              <input type="date" id="invoiceDate" />
+              <small class="error" data-error-for="invoiceDate"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="dueDate">Due Date</label>
+              <input type="date" id="dueDate" />
+              <small class="error" data-error-for="dueDate"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="currency">Currency</label>
+              <select id="currency">
+                <option value="SAR">SAR</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="AED">AED</option>
+                <option value="KWD">KWD</option>
+                <option value="BHD">BHD</option>
+                <option value="OMR">OMR</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="invoiceStatus">Invoice Status</label>
+              <select id="invoiceStatus">
+                <option value="Draft">Draft</option>
+                <option value="Pending">Pending</option>
+                <option value="Paid">Paid</option>
+                <option value="Overdue">Overdue</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="invoiceTheme">Invoice Theme</label>
+              <select id="invoiceTheme">
+                <option value="blue">Blue</option>
+                <option value="green">Green</option>
+                <option value="gold">Gold</option>
+                <option value="purple">Purple</option>
+                <option value="red">Red</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="invoice-card collapsible">
+          <button class="collapse-toggle" type="button">
+            <span>Company Details</span>
+            <i class="fa fa-chevron-down"></i>
+          </button>
+          <div class="collapse-content">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="companyName">Company Name</label>
+                <input type="text" id="companyName" />
+                <small class="error" data-error-for="companyName"></small>
+              </div>
+
+              <div class="form-group">
+                <label for="companyEmail">Email</label>
+                <input type="email" id="companyEmail" />
+                <small class="error" data-error-for="companyEmail"></small>
+              </div>
+
+              <div class="form-group">
+                <label for="companyPhone">Phone</label>
+                <input type="tel" id="companyPhone" />
+                <small class="error" data-error-for="companyPhone"></small>
+              </div>
+
+              <div class="form-group">
+                <label for="companyAddress">Address</label>
+                <input type="text" id="companyAddress" />
+              </div>
+
+              <div class="form-group">
+                <label for="companyCity">City</label>
+                <input type="text" id="companyCity" />
+              </div>
+
+              <div class="form-group">
+                <label for="companyCountry">Country</label>
+                <input type="text" id="companyCountry" />
+              </div>
+
+              <div class="form-group">
+                <label for="companyTaxNumber">Tax Number</label>
+                <input type="text" id="companyTaxNumber" />
+              </div>
+
+              <div class="form-group">
+                <label for="companyLogo">Company Logo</label>
+                <div class="logo-upload" id="logoDropArea">
+                  <input type="file" id="companyLogo" accept="image/*" />
+                  <span class="logo-text"><i class="fa fa-upload"></i> Click or drag & drop logo</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="invoice-card collapsible">
+          <button class="collapse-toggle" type="button">
+            <span>Customer Details</span>
+            <i class="fa fa-chevron-down"></i>
+          </button>
+          <div class="collapse-content">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="customerName">Customer Name</label>
+                <input type="text" id="customerName" />
+                <small class="error" data-error-for="customerName"></small>
+              </div>
+
+              <div class="form-group">
+                <label for="customerCompany">Company Name</label>
+                <input type="text" id="customerCompany" />
+              </div>
+
+              <div class="form-group">
+                <label for="customerEmail">Email</label>
+                <input type="email" id="customerEmail" />
+                <small class="error" data-error-for="customerEmail"></small>
+              </div>
+
+              <div class="form-group">
+                <label for="customerPhone">Phone</label>
+                <input type="tel" id="customerPhone" />
+                <small class="error" data-error-for="customerPhone"></small>
+              </div>
+
+              <div class="form-group">
+                <label for="customerAddress">Address</label>
+                <input type="text" id="customerAddress" />
+              </div>
+
+              <div class="form-group">
+                <label for="customerCity">City</label>
+                <input type="text" id="customerCity" />
+              </div>
+
+              <div class="form-group">
+                <label for="customerCountry">Country</label>
+                <input type="text" id="customerCountry" />
+              </div>
+
+              <div class="form-group">
+                <label for="customerTaxNumber">Tax Number</label>
+                <input type="text" id="customerTaxNumber" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="invoice-card">
+          <h2>Items</h2>
+          <div class="items-table-wrapper">
+            <table class="items-table" aria-label="Invoice items">
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Qty</th>
+                  <th>Unit Price</th>
+                  <th>Tax %</th>
+                  <th>Discount %</th>
+                  <th>Total</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="itemsBody">
+              </tbody>
+            </table>
+          </div>
+          <div class="items-actions">
+            <button type="button" class="btn btn-secondary" id="addItemBtn">
+              <i class="fa fa-plus"></i> Add Item
+            </button>
+          </div>
+        </div>
+
+        <div class="invoice-card collapsible">
+          <button class="collapse-toggle" type="button">
+            <span>Totals & Payment</span>
+            <i class="fa fa-chevron-down"></i>
+          </button>
+          <div class="collapse-content">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="shippingAmount">Shipping</label>
+                <input type="number" id="shippingAmount" step="0.01" />
+              </div>
+
+              <div class="form-group">
+                <label for="invoiceDiscount">Invoice Discount</label>
+                <input type="number" id="invoiceDiscount" step="0.01" />
+              </div>
+
+              <div class="form-group">
+                <label for="amountPaid">Amount Paid</label>
+                <input type="number" id="amountPaid" step="0.01" />
+              </div>
+
+              <div class="form-group">
+                <label for="vatRate">VAT %</label>
+                <select id="vatRate">
+                  <option value="0">0%</option>
+                  <option value="5">5%</option>
+                  <option value="10">10%</option>
+                  <option value="15">15%</option>
+                  <option value="custom">Custom</option>
+                </select>
+              </div>
+
+              <div class="form-group" id="vatCustomWrapper" style="display:none;">
+                <label for="vatCustom">Custom VAT %</label>
+                <input type="number" id="vatCustom" step="0.01" />
+              </div>
+
+              <div class="form-group">
+                <label for="paymentMethod">Payment Method</label>
+                <select id="paymentMethod">
+                  <option value="Cash">Cash</option>
+                  <option value="Bank Transfer">Bank Transfer</option>
+                  <option value="Card">Card</option>
+                  <option value="Apple Pay">Apple Pay</option>
+                  <option value="Google Pay">Google Pay</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="invoice-card collapsible">
+          <button class="collapse-toggle" type="button">
+            <span>Notes & Terms</span>
+            <i class="fa fa-chevron-down"></i>
+          </button>
+          <div class="collapse-content">
+            <div class="form-group">
+              <label for="invoiceNotes">Notes</label>
+              <textarea id="invoiceNotes" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="invoiceTerms">Terms & Conditions</label>
+              <textarea id="invoiceTerms" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="paymentInstructions">Payment Instructions</label>
+              <textarea id="paymentInstructions" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="bankDetails">Bank Details</label>
+              <textarea id="bankDetails" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="invoice-card collapsible">
+          <button class="collapse-toggle" type="button">
+            <span>Signatures</span>
+            <i class="fa fa-chevron-down"></i>
+          </button>
+          <div class="collapse-content">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="clientSignature">Client Signature</label>
+                <input type="text" id="clientSignature" />
+              </div>
+              <div class="form-group">
+                <label for="sellerSignature">Seller Signature</label>
+                <input type="text" id="sellerSignature" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="invoice-card">
+          <h2>Actions</h2>
+          <div class="actions-row">
+            <button type="button" class="btn btn-primary" id="saveDraftBtn">
+              <i class="fa fa-save"></i> Save Draft
+            </button>
+            <button type="button" class="btn btn-secondary" id="loadDraftBtn">
+              <i class="fa fa-folder-open"></i> Load Draft
+            </button>
+            <button type="button" class="btn btn-secondary" id="deleteDraftBtn">
+              <i class="fa fa-trash"></i> Delete Draft
+            </button>
+            <button type="button" class="btn btn-secondary" id="duplicateInvoiceBtn">
+              <i class="fa fa-copy"></i> Duplicate Invoice
+            </button>
+          </div>
+          <div class="actions-row">
+            <button type="button" class="btn btn-outline" id="printInvoiceBtn">
+              <i class="fa fa-print"></i> Print / PDF
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL -->
+      <div class="invoice-right">
+        <div class="invoice-preview-card">
+          <header class="preview-header">
+            <div class="preview-logo" id="previewLogo"></div>
+            <div class="preview-company">
+              <h2 id="previewCompanyName">Company Name</h2>
+              <p id="previewCompanyAddress"></p>
+              <p id="previewCompanyCityCountry"></p>
+              <p id="previewCompanyPhone"></p>
+              <p id="previewCompanyEmail"></p>
+              <p id="previewCompanyTax"></p>
+            </div>
+          </header>
+
+          <section class="preview-meta">
+            <div class="preview-meta-left">
+              <h3>Invoice</h3>
+              <p><strong>Invoice Number:</strong> <span id="previewInvoiceNumber"></span></p>
+              <p><strong>Invoice Date:</strong> <span id="previewInvoiceDate"></span></p>
+              <p><strong>Due Date:</strong> <span id="previewDueDate"></span></p>
+              <p><strong>Status:</strong> <span id="previewStatus"></span></p>
+            </div>
+            <div class="preview-meta-right">
+              <h3>Bill To</h3>
+              <p id="previewCustomerName"></p>
+              <p id="previewCustomerCompany"></p>
+              <p id="previewCustomerAddress"></p>
+              <p id="previewCustomerCityCountry"></p>
+              <p id="previewCustomerPhone"></p>
+              <p id="previewCustomerEmail"></p>
+              <p id="previewCustomerTax"></p>
+            </div>
+          </section>
+
+          <section class="preview-items">
+            <table class="preview-items-table">
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Qty</th>
+                  <th>Unit Price</th>
+                  <th>Tax %</th>
+                  <th>Discount %</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody id="previewItemsBody">
+              </tbody>
+            </table>
+          </section>
+
+          <section class="preview-totals">
+            <div class="totals-left">
+              <div class="qr-placeholder">
+                <span>QR Code</span>
+              </div>
+            </div>
+            <div class="totals-right">
+              <div class="totals-row">
+                <span>Subtotal</span>
+                <span id="previewSubtotal"></span>
+              </div>
+              <div class="totals-row">
+                <span>Tax</span>
+                <span id="previewTax"></span>
+              </div>
+              <div class="totals-row">
+                <span>Discount</span>
+                <span id="previewDiscount"></span>
+              </div>
+              <div class="totals-row">
+                <span>Shipping</span>
+                <span id="previewShipping"></span>
+              </div>
+              <div class="totals-row grand">
+                <span>Grand Total</span>
+                <span id="previewGrandTotal"></span>
+              </div>
+              <div class="totals-row">
+                <span>Amount Paid</span>
+                <span id="previewAmountPaid"></span>
+              </div>
+              <div class="totals-row balance">
+                <span>Balance Due</span>
+                <span id="previewBalanceDue"></span>
+              </div>
+            </div>
+          </section>
+
+          <section class="preview-notes">
+            <h3>Notes</h3>
+            <p id="previewNotes"></p>
+
+            <h3>Terms & Conditions</h3>
+            <p id="previewTerms"></p>
+
+            <h3>Payment Instructions</h3>
+            <p id="previewPaymentInstructions"></p>
+
+            <h3>Bank Details</h3>
+            <p id="previewBankDetails"></p>
+          </section>
+
+          <section class="preview-signatures">
+            <div class="signature-block">
+              <span>Client Signature</span>
+              <div class="signature-line"></div>
+              <p id="previewClientSignature"></p>
+            </div>
+            <div class="signature-block">
+              <span>Seller Signature</span>
+              <div class="signature-line"></div>
+              <p id="previewSellerSignature"></p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+<!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-column">
+        <h3>BizTools Hub</h3>
+        <p>Professional Business, HR, Finance & Engineering Tools.</p>
+      </div>
+      <div class="footer-column">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="tools.html">Tools</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Policies</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms & Conditions</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
+          <li><a href="cookies.html">Cookie Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Newsletter</h4>
+        <form id="footerNewsletterForm">
+          <input type="email" name="email" placeholder="Email address" required />
+          <button type="submit" class="btn-primary btn-small">Subscribe</button>
+        </form>
+        <div class="footer-social">
+          <a href="#" aria-label="Twitter">X</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Facebook">f</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> BizTools Hub. All rights reserved.</p>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+<script src="../js/script.js"></script>
+</body>
+</html>
