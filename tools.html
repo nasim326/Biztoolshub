@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tools - BizTools Hub</title>
+  <meta name="description" content="Browse all HR, finance, construction, business, and developer tools on BizTools Hub." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="canonical" href="https://www.example.com/tools.html" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="light">
+  <!-- Header -->
+  <header class="header sticky">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">BizTools <span>Hub</span></a>
+      <nav class="nav">
+        <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="tools.html" class="active">Tools</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <div class="search-wrapper">
+          <input type="search" id="globalSearch" placeholder="Search tools..." />
+        </div>
+        <button id="darkModeToggle" class="btn-icon">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="breadcrumbs">
+    <div class="container">
+      <a href="index.html">Home</a> / <span>Tools</span>
+    </div>
+  </nav>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <h1>All Tools</h1>
+        <p>Browse tools by category and quickly access calculators and generators.</p>
+
+        <div class="tabs" data-tabs>
+          <button class="tab active" data-tab="hr">HR Tools</button>
+          <button class="tab" data-tab="finance">Finance</button>
+          <button class="tab" data-tab="construction">Construction</button>
+          <button class="tab" data-tab="business">Business</button>
+          <button class="tab" data-tab="developer">Developer</button>
+        </div>
+
+        <div class="tab-panels">
+          <div class="tab-panel active" data-tab-panel="hr">
+            <div class="card-grid">
+              <article class="tool-card">
+                <h3>End of Service Calculator</h3>
+                <p>Calculate EOS benefits.</p>
+                <a href="eosb.html" class="btn-link">Open</a>
+              </article>
+              <article class="tool-card">
+                <h3>Salary Calculator</h3>
+                <p>Compute monthly and annual salary.</p>
+                <a href="hr.html?tool=salary" class="btn-link">Open</a>
+              </article>
+              <article class="tool-card">
+                <h3>Leave Salary Calculator</h3>
+                <p>Calculate leave salary entitlements.</p>
+                <a href="hr.html?tool=leave" class="btn-link">Open</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="tab-panel" data-tab-panel="finance">
+            <div class="card-grid">
+              <article class="tool-card">
+                <h3>Loan Calculator</h3>
+                <p>Monthly payment and total interest.</p>
+                <a href="finance.html?tool=loan" class="btn-link">Open</a>
+              </article>
+              <article class="tool-card">
+                <h3>Gold Price Calculator</h3>
+                <p>Estimate gold value by weight and price.</p>
+                <a href="finance.html?tool=gold" class="btn-link">Open</a>
+              </article>
+              <article class="tool-card">
+                <h3>VAT Calculator</h3>
+                <p>Compute VAT inclusive/exclusive amounts.</p>
+                <a href="finance.html?tool=vat" class="btn-link">Open</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="tab-panel" data-tab-panel="construction">
+            <div class="card-grid">
+              <article class="tool-card">
+                <h3>Concrete Calculator</h3>
+                <p>Estimate concrete volume.</p>
+                <a href="construction.html#concrete" class="btn-link">Open</a>
+              </article>
+              <article class="tool-card">
+                <h3>Steel Weight Calculator</h3>
+                <p>Calculate steel bar weight.</p>
+                <a href="construction.html#steel" class="btn-link">Open</a>
+              </article>
+              <article class="tool-card">
+                <h3>Paint Calculator</h3>
+                <p>Estimate paint required for walls.</p>
+                <a href="construction.html#paint" class="btn-link">Open</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="tab-panel" data-tab-panel="business">
+            <div class="card-grid">
+              <article class="tool-card">
+                <h3>Invoice Generator</h3>
+                <p>Create professional invoices.</p>
+                <a href="business.html#invoice" class="btn-link">Open</a>
+              </article>
+              <article class="tool-card">
+                <h3>Quotation Generator</h3>
+                <p>Generate quotations for clients.</p>
+                <a href="business.html#quotation" class="btn-link">Open</a>
+              </article>
+              <article class="tool-card">
+                <h3>Profit Margin Calculator</h3>
+                <p>Calculate profit margins.</p>
+                <a href="business.html#profit" class="btn-link">Open</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="tab-panel" data-tab-panel="developer">
+            <div class="card-grid">
+              <article class="tool-card">
+                <h3>JSON Formatter</h3>
+                <p>Format and validate JSON.</p>
+                <a href="developer.html#json" class="btn-link">Open</a>
+              </article>
+              <article class="tool-card">
+                <h3>Base64 Encoder/Decoder</h3>
+                <p>Encode and decode Base64 strings.</p>
+                <a href="developer.html#base64" class="btn-link">Open</a>
+              </article>
+              <article class="tool-card">
+                <h3>Password Generator</h3>
+                <p>Create strong random passwords.</p>
+                <a href="developer.html#password" class="btn-link">Open</a>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ad placeholder -->
+        <div class="ad-container ad-responsive">
+          <span class="ad-label">Ad space</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <!-- same footer as index -->
+    <div class="container footer-inner">
+      <div class="footer-column">
+        <h3>BizTools Hub</h3>
+        <p>Professional Business, HR, Finance & Engineering Tools.</p>
+      </div>
+      <div class="footer-column">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="tools.html">Tools</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Policies</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms & Conditions</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
+          <li><a href="cookies.html">Cookie Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Newsletter</h4>
+        <form id="footerNewsletterForm">
+          <input type="email" name="email" placeholder="Email address" required />
+          <button type="submit" class="btn-primary btn-small">Subscribe</button>
+        </form>
+        <div class="footer-social">
+          <a href="#">X</a>
+          <a href="#">in</a>
+          <a href="#">f</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> BizTools Hub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Finance Tools - BizTools Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .tool-page { display: none; }
+    .layout-grid { display: grid; grid-template-columns: 1fr 300px; gap: 30px; }
+    .sidebar { background: var(--card-bg); padding: 20px; border-radius: 10px; }
+    .sidebar ul { list-style: none; padding: 0; }
+    .sidebar li { margin-bottom: 10px; }
+    .tool-card { display: block; padding: 20px; margin-bottom: 20px; background: var(--card-bg); border-radius: 10px; text-decoration: none; color: inherit; }
+  </style>
+</head>
+
+<body class="light">
+
+<header class="header sticky">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">BizTools <span>Hub</span></a>
+    <nav class="nav">
+      <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+	<li><a href="about.html">About</a></li>
+        <li><a href="tools.html">Tools</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+        <div class="search-wrapper">
+          <input type="search" id="globalSearch" placeholder="Search tools, articles..." aria-label="Search" />
+        </div>
+        <button id="darkModeToggle" class="btn-icon" aria-label="Toggle dark mode">
+          🌙
+        </button>
+      </div>
+    </div>
+</header>
+
+<nav class="breadcrumbs">
+  <div class="container">
+    <a href="index.html">Home</a> / <a href="tools.html">Tools</a> / <span>Finance Tools</span>
+  </div>
+</nav>
+
+<main>
+  <section class="section">
+    <div class="container layout-grid">
+
+      <!-- MAIN CONTENT -->
+      <div class="main-content">
+
+        <!-- Default Finance Tools List -->
+        <div id="financeHome">
+          <h1>Finance Tools</h1>
+          <p>Select a calculator below to open the full detailed view.</p>
+
+          <a href="finance.html?tool=loan" class="tool-card">
+            <h2>Loan Calculator</h2>
+            <p>Calculate monthly payments and total interest.</p>
+          </a>
+
+          <a href="finance.html?tool=gold" class="tool-card">
+            <h2>Gold Price Calculator</h2>
+            <p>Estimate gold value based on weight and price per gram.</p>
+          </a>
+
+          <a href="finance.html?tool=vat" class="tool-card">
+            <h2>VAT Calculator</h2>
+            <p>Compute VAT amount and total price.</p>
+          </a>
+        </div>
+
+        <!-- Loan Calculator Page -->
+        <div id="calc-loan" class="tool-page">
+          <h1>Loan Calculator</h1>
+          <form class="calculator-form" data-calculator="loan">
+            <div class="form-group">
+              <label>Loan Amount</label>
+              <input type="number" name="amount" required />
+            </div>
+            <div class="form-group">
+              <label>Interest Rate (%)</label>
+              <input type="number" name="rate" required />
+            </div>
+            <div class="form-group">
+              <label>Years</label>
+              <input type="number" name="years" required />
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">Calculate</button>
+              <button type="button" class="btn-outline" data-reset>Reset</button>
+            </div>
+          </form>
+          <div id="loanResult" class="calculator-result"></div>
+
+<!-- Loan Calculator Extra Sections -->
+<section class="tool-extra">
+
+  <h2>How It Works</h2>
+  <p>
+    The loan calculator helps you estimate your monthly payment, total interest, and total repayment amount.
+    It uses the standard amortization formula, which spreads payments evenly across the loan term.
+  </p>
+
+  <h2>Loan Calculation Logic</h2>
+  <p>
+    Every loan payment includes two parts:
+  </p>
+  <ul>
+    <li><strong>Principal</strong> — the amount you borrowed</li>
+    <li><strong>Interest</strong> — the cost of borrowing money</li>
+  </ul>
+  <p>
+    As you make payments, the interest portion decreases and the principal portion increases.
+  </p>
+
+  <h2>Formula Used</h2>
+  <p>
+    Monthly Payment (EMI) is calculated using:
+  </p>
+
+  <pre class="formula-box">
+    EMI = P × r × (1 + r)ⁿ / ((1 + r)ⁿ − 1)
+
+    Where:
+    P = Loan Amount
+    r = Monthly Interest Rate (Annual Rate ÷ 12 ÷ 100)
+    n = Total Number of Payments (Years × 12)
+  </pre>
+
+  <h2>Example Calculation</h2>
+  <p><strong>Example:</strong></p>
+  <ul>
+    <li>Loan Amount: 10,000</li>
+    <li>Annual Interest Rate: 5%</li>
+    <li>Loan Term: 2 years</li>
+  </ul>
+  <p>
+    Monthly interest rate = 5 ÷ 12 ÷ 100 = 0.004166  
+    Number of payments = 2 × 12 = 24  
+  </p>
+  <p>
+    Monthly Payment = <strong>438.71</strong>  
+    Total Payment = <strong>10,529.04</strong>  
+    Total Interest = <strong>529.04</strong>
+  </p>
+
+  <h2>Frequently Asked Questions</h2>
+
+  <details class="faq-item">
+    <summary>What is EMI?</summary>
+    <p>
+      EMI stands for Equated Monthly Installment — the fixed monthly amount you pay until the loan is fully repaid.
+    </p>
+  </details>
+
+  <details class="faq-item">
+    <summary>Does this calculator include compound interest?</summary>
+    <p>
+      Yes. The formula uses monthly compounding, which is standard for most bank loans.
+    </p>
+  </details>
+
+  <details class="faq-item">
+    <summary>Can I print the results?</summary>
+    <p>
+      Yes. Use the print button in your browser or add a dedicated print button if needed.
+    </p>
+  </details>
+
+  <details class="faq-item">
+    <summary>Is this calculator accurate for all loan types?</summary>
+    <p>
+      It works for personal loans, auto loans, and most bank loans.  
+      It does not apply to mortgages with variable interest rates.
+    </p>
+  </details>
+
+</section>
+
+        </div>
+
+        <!-- Gold Calculator Page -->
+
+<article class="calculator-card" id="gold">
+  <header>
+    <h2>Gold Price Calculator</h2>
+    <p>Estimate gold value using manual Saudi Arabia gold prices.</p>
+  </header>
+
+  <form class="calculator-form" data-calculator="gold">
+
+    <!-- Purity Selector -->
+    <div class="form-group">
+      <label for="goldPurity">Gold Purity</label>
+      <select id="goldPurity" name="purity" required>
+        <option value="24">24K (Pure Gold)</option>
+        <option value="22">22K</option>
+        <option value="21">21K</option>
+      </select>
+    </div>
+
+    <!-- Weight -->
+    <div class="form-group">
+      <label for="goldWeight">Weight (grams)</label>
+      <input type="number" id="goldWeight" name="weight" min="0" step="0.01" required />
+    </div>
+
+    <!-- Price per Gram -->
+    <div class="form-group">
+      <label for="goldPrice">Price per gram (SAR)</label>
+      <input type="number" id="goldPrice" name="price" min="0" step="0.01" required readonly />
+      <small id="goldPriceStatus" style="color:#888;">Price based on manual 24K value.</small>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-primary">Calculate</button>
+      <button type="button" class="btn-outline" data-reset>Reset</button>
+    </div>
+  </form>
+
+  <div class="calculator-result" id="goldResult"></div>
+
+  <script>
+    // ⭐ MANUALLY SET YOUR 24K PRICE HERE ⭐
+    const BASE_24K_PRICE_SAR = 490.44; 
+    // Change this number anytime you want (example: 280, 285, 290, etc.)
+
+    const puritySelect = document.getElementById("goldPurity");
+    const priceInput = document.getElementById("goldPrice");
+    const status = document.getElementById("goldPriceStatus");
+
+    function updateGoldPrice() {
+      const purity = parseInt(puritySelect.value, 10);
+
+      // Calculate price based on purity
+      const finalPrice = (BASE_24K_PRICE_SAR * (purity / 24)).toFixed(2);
+
+      priceInput.value = finalPrice;
+      status.innerText = `Price calculated for ${purity}K based on 24K = ${BASE_24K_PRICE_SAR} SAR/g`;
+    }
+
+    puritySelect.addEventListener("change", updateGoldPrice);
+
+    // Initial load
+    updateGoldPrice();
+  </script>
+</article>
+
+
+<!-- Gold Calculator Extra Sections -->
+<section class="tool-extra">
+
+  <h2>Live Gold Price (Saudi Arabia)</h2>
+  <p>
+    Below values update automatically based on live SAR gold rates.
+  </p>
+
+  <div class="form-group">
+    <label for="goldPurity">Select Gold Purity</label>
+    <select id="goldPurity">
+      <option value="24">24K (Pure Gold)</option>
+      <option value="22">22K</option>
+      <option value="21">21K</option>
+    </select>
+  </div>
+
+  <div class="live-price-box">
+    <p><strong>Live Price per Gram (SAR):</strong> <span id="liveGoldPrice">Loading...</span></p>
+  </div>
+
+  <script>
+    // ⭐ MANUALLY SET YOUR 24K PRICE HERE ⭐
+    const BASE_24K_PRICE_SAR = 490.44; 
+    // Change this number anytime you want (example: 280, 285, 290, etc.)
+
+    const puritySelect = document.getElementById("goldPurity");
+    const priceInput = document.getElementById("goldPrice");
+    const status = document.getElementById("goldPriceStatus");
+
+    function updateGoldPrice() {
+      const purity = parseInt(puritySelect.value, 10);
+
+      // Calculate price based on purity
+      const finalPrice = (BASE_24K_PRICE_SAR * (purity / 24)).toFixed(2);
+
+      priceInput.value = finalPrice;
+      status.innerText = `Price calculated for ${purity}K based on 24K = ${BASE_24K_PRICE_SAR} SAR/g`;
+    }
+
+    puritySelect.addEventListener("change", updateGoldPrice);
+
+    // Initial load
+    updateGoldPrice();
+  </script>
+
+  <h2>How It Works</h2>
+  <p>
+    The gold calculator multiplies the weight of gold by the live market price per gram.
+    When you select 24K, 22K, or 21K, the calculator adjusts the price automatically.
+  </p>
+
+  <h2>Gold Calculation Logic</h2>
+  <ul>
+    <li><strong>24K:</strong> Pure gold (100%)</li>
+    <li><strong>22K:</strong> 91.6% purity</li>
+    <li><strong>21K:</strong> 87.5% purity</li>
+  </ul>
+  <p>
+    Price per gram is calculated as:
+  </p>
+
+  <pre class="formula-box">
+    Price_per_gram = Live_24K_price × (Purity / 24)
+  </pre>
+
+  <h2>Example</h2>
+  <p><strong>Example:</strong></p>
+  <ul>
+    <li>Weight: 10 grams</li>
+    <li>Purity: 22K</li>
+    <li>Live 24K price: 280 SAR</li>
+  </ul>
+  <p>
+    22K price = 280 × (22/24) = 256.67 SAR  
+    Total value = 256.67 × 10 = <strong>2566.70 SAR</strong>
+  </p>
+
+  <h2>Frequently Asked Questions</h2>
+
+  <details class="faq-item">
+    <summary>Does the price update automatically?</summary>
+    <p>Yes, the calculator fetches live gold prices from Saudi Arabia.</p>
+  </details>
+
+  <details class="faq-item">
+    <summary>Is 24K the purest gold?</summary>
+    <p>Yes, 24K is 99.9% pure gold.</p>
+  </details>
+
+  <details class="faq-item">
+    <summary>Why is 22K cheaper than 24K?</summary>
+    <p>Because 22K contains alloy metals for strength.</p>
+  </details>
+
+  <details class="faq-item">
+    <summary>Can I print the gold value?</summary>
+    <p>Yes, use your browser print option.</p>
+  </details>
+
+</section>
+
+        </div>
+
+        <!-- VAT Calculator Page -->
+        <div id="calc-vat" class="tool-page">
+          <h1>VAT Calculator</h1>
+          <form class="calculator-form" data-calculator="vat">
+            <div class="form-group">
+              <label>Net Amount</label>
+              <input type="number" name="amount" required />
+            </div>
+            <div class="form-group">
+              <label>VAT Rate (%)</label>
+              <input type="number" name="rate" required />
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">Calculate</button>
+              <button type="button" class="btn-outline" data-reset>Reset</button>
+            </div>
+          </form>
+          <div id="vatResult" class="calculator-result"></div>
+        </div>
+
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <h3>Related Tools</h3>
+        <ul>
+          <li><a href="finance.html?tool=loan">Loan Calculator</a></li>
+          <li><a href="finance.html?tool=gold">Gold Calculator</a></li>
+          <li><a href="finance.html?tool=vat">VAT Calculator</a></li>
+          <li><a href="hr.html?tool=eos">End of Service Calculator</a></li>
+          <li><a href="hr.html?tool=leave">Leave Salary Calculator</a></li>
+        </ul>
+      </aside>
+
+    </div>
+  </section>
+</main>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-column">
+      <h3>BizTools Hub</h3>
+      <p>Professional Business, HR, Finance & Engineering Tools.</p>
+    </div>
+
+    <div class="footer-column">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="tools.html">Tools</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>Policies</h4>
+      <ul>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms & Conditions</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© <span id="year"></span> BizTools Hub</p>
+  </div>
+</footer>
+<script>
+  // Load correct calculator based on URL
+  const params = new URLSearchParams(window.location.search);
+  const tool = params.get("tool");
+
+  if (tool) {
+    document.getElementById("financeHome").style.display = "none";
+    document.getElementById("calc-" + tool).style.display = "block";
+  }
+</script>
+
+<script src="js/script.js"></script>
+</body>
+</html>

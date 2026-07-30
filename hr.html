@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>HR Tools - BizTools Hub</title>
+  <meta name="description" content="End of Service Calculator, Salary Calculator, Leave Salary Calculator for HR professionals." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body class="light">
+
+<!-- HEADER -->
+<header class="header sticky">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">BizTools <span>Hub</span></a>
+
+    <nav class="nav">
+      <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+	<li><a href="about.html">About</a></li>
+        <li><a href="tools.html">Tools</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+        <div class="search-wrapper">
+          <input type="search" id="globalSearch" placeholder="Search tools, articles..." aria-label="Search" />
+        </div>
+        <button id="darkModeToggle" class="btn-icon" aria-label="Toggle dark mode">
+          🌙
+        </button>
+      </div>
+    </div>
+</header>
+
+<!-- BREADCRUMB -->
+<nav class="breadcrumbs">
+  <div class="container">
+    <a href="index.html">Home</a> /
+    <a href="tools.html">Tools</a> /
+    <span>HR Tools</span>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="section">
+  <div class="container hr-layout">
+
+    <!-- LEFT CONTENT -->
+    <div class="hr-main">
+
+      <!-- SELECTED CALCULATOR -->
+      <section class="calculator-full">
+
+        <!-- Detect which calculator to show -->
+        <script>
+          const params = new URLSearchParams(window.location.search);
+          const calc = params.get("tool") || "eos";
+        </script>
+
+        <!-- END OF SERVICE CALCULATOR -->
+        <div id="calc-eos" class="calc-page">
+          <h1>End of Service Calculator</h1>
+          <p class="lead">
+            Calculate your End of Service Benefits based on salary and years of service.
+            This tool follows common GCC HR standards.
+          </p>
+
+          <form class="calculator-form" data-calculator="eos">
+            <div class="form-group">
+              <label>Monthly Salary</label>
+              <input type="number" name="salary" min="0" step="0.01" required />
+            </div>
+
+            <div class="form-group">
+              <label>Years of Service</label>
+              <input type="number" name="years" min="0" step="0.1" required />
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">Calculate</button>
+              <button type="button" class="btn-outline" data-reset>Reset</button>
+            </div>
+          </form>
+
+          <div class="calculator-result"></div>
+
+          <h2>How End of Service is Calculated</h2>
+          <p>
+            End of Service (EOS) benefits are typically calculated based on your last drawn salary
+            and total years of service. Many GCC countries follow a formula similar to:
+          </p>
+
+          <div class="glass-card">
+            <strong>Formula:</strong><br>
+            EOS = Salary × 0.5 × Years (first 5 years)<br>
+            EOS = Salary × 1 × Years (after 5 years)
+          </div>
+
+          <h2>Example</h2>
+          <p>
+            If your salary is 5,000 SAR and you worked for 3 years:
+          </p>
+          <div class="glass-card">
+            EOS = 5000 × 0.5 × 3 = 7,500 SAR
+          </div>
+
+          <h2>FAQs</h2>
+          <div class="faq-accordion" data-faq>
+            <button class="faq-item"><span>Is this legally binding?</span><span class="faq-icon">+</span></button>
+            <div class="faq-content"><p>No. Always verify with local labor laws.</p></div>
+
+            <button class="faq-item"><span>Can I print the result?</span><span class="faq-icon">+</span></button>
+            <div class="faq-content"><p>Yes, use the print button below.</p></div>
+          </div>
+
+          <div class="calculator-actions">
+            <button class="btn-outline" onclick="window.print()">Print</button>
+            <button class="btn-outline" data-share>Share</button>
+          </div>
+
+          <!-- Ad -->
+          <div class="ad-container"><span class="ad-label">Ad space</span></div>
+        </div>
+
+        <!-- SALARY CALCULATOR -->
+        <div id="calc-salary" class="calc-page">
+          <h1>Salary Calculator</h1>
+          <p class="lead">Convert monthly salary to annual salary instantly.</p>
+
+          <form class="calculator-form" data-calculator="salary">
+            <div class="form-group">
+              <label>Monthly Salary</label>
+              <input type="number" name="monthly" min="0" step="0.01" required />
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">Calculate</button>
+              <button type="button" class="btn-outline" data-reset>Reset</button>
+            </div>
+          </form>
+
+          <div class="calculator-result"></div>
+
+          <h2>Formula</h2>
+          <div class="glass-card">
+            Annual Salary = Monthly Salary × 12
+          </div>
+
+          <h2>Example</h2>
+          <p>If monthly salary = 8,000 SAR:</p>
+          <div class="glass-card">Annual Salary = 96,000 SAR</div>
+
+          <!-- Ad -->
+          <div class="ad-container"><span class="ad-label">Ad space</span></div>
+        </div>
+
+        <!-- LEAVE SALARY CALCULATOR -->
+        <div id="calc-leave" class="calc-page">
+          <h1>Leave Salary Calculator</h1>
+          <p class="lead">Calculate leave salary based on daily rate and number of leave days.</p>
+
+          <form class="calculator-form" data-calculator="leave">
+            <div class="form-group">
+              <label>Daily Salary</label>
+              <input type="number" name="daily" min="0" step="0.01" required />
+            </div>
+
+            <div class="form-group">
+              <label>Leave Days</label>
+              <input type="number" name="days" min="0" step="1" required />
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">Calculate</button>
+              <button type="button" class="btn-outline" data-reset>Reset</button>
+            </div>
+          </form>
+
+          <div class="calculator-result"></div>
+
+          <h2>Formula</h2>
+          <div class="glass-card">
+            Leave Salary = Daily Salary × Leave Days
+          </div>
+
+          <!-- Ad -->
+          <div class="ad-container"><span class="ad-label">Ad space</span></div>
+        </div>
+
+      </section>
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <aside class="hr-sidebar">
+      <h3>Related HR Tools</h3>
+
+      <div class="sidebar-card">
+        <a href="hr.html?tool=eos">End of Service Calculator</a>
+      </div>
+
+      <div class="sidebar-card">
+        <a href="hr.html?tool=salary">Salary Calculator</a>
+      </div>
+
+      <div class="sidebar-card">
+        <a href="hr.html?tool=leave">Leave Salary Calculator</a>
+      </div>
+
+      <h3>Other Popular Tools</h3>
+      <div class="sidebar-card"><a href="finance.html#loan">Loan Calculator</a></div>
+      <div class="sidebar-card"><a href="business.html#profit">Profit Margin Calculator</a></div>
+      <div class="sidebar-card"><a href="developer.html#json">JSON Formatter</a></div>
+
+      <!-- Ad -->
+      <div class="ad-container"><span class="ad-label">Ad space</span></div>
+    </aside>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-column">
+      <h3>BizTools Hub</h3>
+      <p>Professional Business, HR, Finance & Engineering Tools.</p>
+    </div>
+
+    <div class="footer-column">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="tools.html">Tools</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>Policies</h4>
+      <ul>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms & Conditions</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© <span id="year"></span> BizTools Hub</p>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+
+<script>
+  // Show correct calculator based on ?tool=
+  const selected = new URLSearchParams(window.location.search).get("tool") || "eos";
+  document.querySelectorAll(".calc-page").forEach(page => page.style.display = "none");
+  document.getElementById("calc-" + selected).style.display = "block";
+</script>
+
+</body>
+</html>

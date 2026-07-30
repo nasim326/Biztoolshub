@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>BizTools Hub - Professional Business, HR, Finance & Engineering Tools</title>
+  <meta name="description" content="BizTools Hub offers premium business, HR, finance, construction, AI and developer tools for professionals." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.example.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="BizTools Hub" />
+  <meta property="og:description" content="Professional Business, HR, Finance & Engineering Tools." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.example.com/" />
+  <meta property="og:image" content="https://www.example.com/og-image.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="BizTools Hub" />
+  <meta name="twitter:description" content="Professional Business, HR, Finance & Engineering Tools." />
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="light">
+  <div id="page-loader" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header sticky">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">BizTools <span>Hub</span></a>
+
+      <nav class="nav" aria-label="Main navigation">
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="tools.html">Tools</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <div class="search-wrapper">
+          <input type="search" id="globalSearch" placeholder="Search tools, articles..." aria-label="Search" />
+        </div>
+        <button id="darkModeToggle" class="btn-icon" aria-label="Toggle dark mode">
+          🌙
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Breadcrumbs -->
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <div class="container">
+      <a href="index.html">Home</a> / <span>Welcome</span>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-content">
+          <h1>Premium Business, HR, Finance & Engineering Tools</h1>
+          <p>BizTools Hub helps employees, HR professionals, accountants, engineers, and business owners work smarter with modern web tools.</p>
+          <div class="hero-actions">
+            <a href="tools.html" class="btn-primary">Explore Tools</a>
+            <a href="about.html" class="btn-outline">Learn More</a>
+          </div>
+
+          <div class="hero-search">
+            <label for="heroSearch" class="sr-only">Search tools</label>
+            <input type="search" id="heroSearch" placeholder="Search tools like Salary Calculator, Loan Calculator..." />
+            <button class="btn-primary" id="heroSearchBtn">Search</button>
+          </div>
+
+          <!-- Ad placeholder -->
+          <div class="ad-container ad-responsive">
+            <!-- Google AdSense Placeholder -->
+            <span class="ad-label">Ad space</span>
+          </div>
+        </div>
+
+        <div class="hero-visual glass-card">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <span class="stat-number">50+</span>
+              <span class="stat-label">Professional Tools</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">10k+</span>
+              <span class="stat-label">Monthly Users</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">99.9%</span>
+              <span class="stat-label">Uptime</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">4.9/5</span>
+              <span class="stat-label">User Rating</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Popular Tools -->
+    <section class="section" id="popular-tools">
+      <div class="container">
+        <div class="section-header">
+          <h2>Popular Tools</h2>
+          <p>Frequently used calculators and generators by professionals.</p>
+        </div>
+        <div class="card-grid" data-search-scope="tools">
+          <article class="tool-card" data-keywords="salary hr end of service">
+            <h3>End of Service Calculator</h3>
+            <p>Calculate end-of-service benefits quickly and accurately.</p>
+            <a href="eosb.html" class="btn-link">Open Tool</a>
+          </article>
+          <article class="tool-card" data-keywords="loan finance interest">
+            <h3>Loan Calculator</h3>
+            <p>Estimate monthly payments and total interest.</p>
+            <a href="finance.html#loan" class="btn-link">Open Tool</a>
+          </article>
+          <article class="tool-card" data-keywords="invoice business billing">
+            <h3>Invoice Generator</h3>
+            <p>Create professional invoices in seconds.</p>
+            <a href="business.html#invoice" class="btn-link">Open Tool</a>
+          </article>
+          <article class="tool-card" data-keywords="json developer formatter">
+            <h3>JSON Formatter</h3>
+            <p>Format and validate JSON for developers.</p>
+            <a href="developer.html#json" class="btn-link">Open Tool</a>
+          </article>
+        </div>
+
+        <!-- Ad placeholder -->
+        <div class="ad-container ad-responsive">
+          <span class="ad-label">Ad space</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2>Tool Categories</h2>
+          <p>Organized for HR, finance, construction, business, and developers.</p>
+        </div>
+        <div class="category-grid">
+          <a href="hr.html" class="category-card">
+            <h3>HR Tools</h3>
+            <p>End of service, salary, leave calculators.</p>
+          </a>
+          <a href="finance.html" class="category-card">
+            <h3>Finance Tools</h3>
+            <p>Loan, gold price, VAT calculators.</p>
+          </a>
+          <a href="construction.html" class="category-card">
+            <h3>Construction Tools</h3>
+            <p>Concrete, steel weight, paint calculators.</p>
+          </a>
+          <a href="business.html" class="category-card">
+            <h3>Business Tools</h3>
+            <p>Invoice, quotation, profit margin tools.</p>
+          </a>
+          <a href="developer.html" class="category-card">
+            <h3>Developer Tools</h3>
+            <p>JSON formatter, Base64, password generator.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Latest Articles -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Latest Articles</h2>
+          <p>Insights on HR, finance, construction, and productivity.</p>
+        </div>
+        <div class="card-grid" data-search-scope="articles">
+          <article class="article-card">
+            <h3>How to Calculate End of Service Benefits</h3>
+            <p>Understand the formula and legal considerations for EOS calculations.</p>
+            <a href="blog.html" class="btn-link">Read More</a>
+          </article>
+          <article class="article-card">
+            <h3>Optimizing Loan Repayments</h3>
+            <p>Strategies to reduce interest and pay off loans faster.</p>
+            <a href="blog.html" class="btn-link">Read More</a>
+          </article>
+          <article class="article-card">
+            <h3>Accurate Concrete Estimation</h3>
+            <p>Tips for planning construction materials and avoiding waste.</p>
+            <a href="blog.html" class="btn-link">Read More</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Tools -->
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2>Featured Tools</h2>
+          <p>Highlighted tools for business owners and professionals.</p>
+        </div>
+        <div class="card-grid">
+          <article class="tool-card">
+            <h3>Profit Margin Calculator</h3>
+            <p>Quickly calculate profit margins for products and services.</p>
+            <a href="business.html#profit" class="btn-link">Open Tool</a>
+          </article>
+          <article class="tool-card">
+            <h3>VAT Calculator</h3>
+            <p>Compute VAT amounts and inclusive/exclusive prices.</p>
+            <a href="finance.html#vat" class="btn-link">Open Tool</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Why BizTools Hub?</h2>
+          <p>Designed for professionals who value accuracy, speed, and trust.</p>
+        </div>
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <h3>Premium Design</h3>
+            <p>Modern, clean, and responsive UI that feels like a SaaS product.</p>
+          </div>
+          <div class="benefit-card">
+            <h3>Accurate Calculations</h3>
+            <p>Reusable calculator engine with clear formulas and examples.</p>
+          </div>
+          <div class="benefit-card">
+            <h3>Future Ready</h3>
+            <p>Modular architecture ready for more tools and backend integration.</p>
+          </div>
+          <div class="benefit-card">
+            <h3>Fast & Accessible</h3>
+            <p>Optimized for performance, SEO, and accessibility.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Statistics -->
+    <section class="section section-alt">
+      <div class="container stats-section">
+        <div class="section-header">
+          <h2>Platform Statistics</h2>
+          <p>Trusted by professionals across industries.</p>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-number">120+</span>
+            <span class="stat-label">Companies</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">30+</span>
+            <span class="stat-label">Countries</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">95+</span>
+            <span class="stat-label">Lighthouse Score</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">90+</span>
+            <span class="stat-label">Page Speed</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>What Our Users Say</h2>
+          <p>Feedback from HR professionals, accountants, and engineers.</p>
+        </div>
+        <div class="testimonial-grid">
+          <article class="testimonial-card">
+            <p>"BizTools Hub has simplified our HR calculations and saved hours every week."</p>
+            <span class="testimonial-author">HR Manager, Manufacturing Company</span>
+          </article>
+          <article class="testimonial-card">
+            <p>"The loan and VAT calculators are accurate and easy to use for our clients."</p>
+            <span class="testimonial-author">Senior Accountant</span>
+          </article>
+          <article class="testimonial-card">
+            <p>"Construction tools help us estimate materials quickly and avoid costly mistakes."</p>
+            <span class="testimonial-author">Civil Engineer</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="section section-alt">
+      <div class="container newsletter-section">
+        <div class="section-header">
+          <h2>Stay Updated</h2>
+          <p>Get new tools, articles, and updates directly to your inbox.</p>
+        </div>
+        <form id="newsletterForm" class="newsletter-form">
+          <label for="newsletterEmail">Email Address</label>
+          <input type="email" id="newsletterEmail" name="email" required placeholder="you@example.com" />
+          <button type="submit" class="btn-primary">Subscribe</button>
+          <p class="form-hint">We respect your privacy. Unsubscribe anytime.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section">
+      <div class="container cta-section">
+        <h2>Ready to streamline your work?</h2>
+        <p>Explore our tools and start saving time today.</p>
+        <a href="tools.html" class="btn-primary">Browse All Tools</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Back to top -->
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-column">
+        <h3>BizTools Hub</h3>
+        <p>Professional Business, HR, Finance & Engineering Tools.</p>
+      </div>
+      <div class="footer-column">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="tools.html">Tools</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Policies</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms & Conditions</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
+          <li><a href="cookies.html">Cookie Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Newsletter</h4>
+        <form id="footerNewsletterForm">
+          <input type="email" name="email" placeholder="Email address" required />
+          <button type="submit" class="btn-primary btn-small">Subscribe</button>
+        </form>
+        <div class="footer-social">
+          <a href="#" aria-label="Twitter">X</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Facebook">f</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> BizTools Hub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
