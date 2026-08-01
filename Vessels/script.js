@@ -469,42 +469,55 @@ class FormController {
             el.addEventListener("change", () => this.calculate());
         });
 
-// Enable collapsible cards
-document.querySelectorAll(".collapsible .card-header").forEach(header => {
-    header.addEventListener("click", () => {
-        const card = header.parentElement;
-        card.classList.toggle("open");
-    });
-});
+        // Enable collapsible cards
+        document.querySelectorAll(".collapsible .card-header").forEach(header => {
+            header.addEventListener("click", () => {
+                const card = header.parentElement;
+                card.classList.toggle("open");
+            });
+        });
 
         document.getElementById("themeToggle")?.addEventListener("click", () => {
             document.body.classList.toggle("theme-dark");
             document.body.classList.toggle("theme-light");
         });
 
+        document.getElementById("exportExcel")?.addEventListener("click", () => {
+            const projectData = this.collectProjectData();
 
+            const resultData = {
+                estimatedHours: parseFloat(document.getElementById("estimatedFabricationHours").textContent) || 0,
+                additionalHours: parseFloat(document.getElementById("additionalFabricationHours").textContent) || 0,
+                totalHours: parseFloat(document.getElementById("totalHours").textContent) || 0,
+                workers: parseFloat(document.getElementById("estimatedWorkers").textContent) || 0,
+                duration: parseFloat(document.getElementById("estimatedDuration").textContent) || 0,
+                labourCost: parseFloat(document.getElementById("estimatedLabourCost").textContent) || 0,
+                totalCost: parseFloat(document.getElementById("estimatedTotalCost").textContent) || 0
+            };
 
-document.getElementById("exportExcel").addEventListener("click", () => {
-    const projectData = this.collectProjectData();
+            const breakdownModules = FabricationEngine.calculateAll(
+                this.v, this.w, this.n, this.s, this.a, this.i, this.ins, this.p
+            ).modules;
 
-    const resultData = {
-        estimatedHours: parseFloat(document.getElementById("estimatedFabricationHours").textContent),
-        additionalHours: parseFloat(document.getElementById("additionalFabricationHours").textContent),
-        totalHours: parseFloat(document.getElementById("totalHours").textContent),
-        workers: parseFloat(document.getElementById("estimatedWorkers").textContent),
-        duration: parseFloat(document.getElementById("estimatedDuration").textContent),
-        labourCost: parseFloat(document.getElementById("estimatedLabourCost").textContent),
-        totalCost: parseFloat(document.getElementById("estimatedTotalCost").textContent)
-    };
+            exportToExcel(projectData, resultData, breakdownModules);
+        });
 
-    const breakdownModules = FabricationEngine.calculateAll(
-        this.v, this.w, this.n, this.s, this.a, this.i, this.ins, this.p
-    ).modules;
-
-    exportToExcel(projectData, resultData, breakdownModules);
-});
         this.calculate();
+    }
 
+    /* === FIXED: ADDED MISSING METHOD === */
+    collectProjectData() {
+        return {
+            vessel: this.v,
+            welding: this.w,
+            nozzles: this.n,
+            supports: this.s,
+            attachments: this.a,
+            internals: this.i,
+            inspection: this.ins,
+            painting: this.p,
+            productivity: this.prod
+        };
     }
 
     calculate() {
@@ -592,17 +605,20 @@ document.getElementById("exportExcel").addEventListener("click", () => {
 }
 
 /* ============================================================================
-   EXPORT EXCEL — Real XLSX (Base64) — Works Offline in Chrome
+   EXPORT EXCEL — SheetJS (Real XLSX, GitHub Pages Compatible)
    ============================================================================ */
 function exportToExcel(projectData, resultData, breakdownModules) {
-
-    function sheet(rows) {
-        return rows.map(r =>
-            `<row>${r.map(c => `<c t="inlineStr"><is><t>${c}</t></is></c>`).join("")}</row>`
-        ).join("");
+    if (typeof XLSX === "undefined") {
+        alert("SheetJS (XLSX) library is not loaded. Please include the script tag in your HTML.");
+        return;
     }
 
-    const inputRows = [
+    const wb = XLSX.utils.book_new();
+
+    // -----------------------------
+    // INPUT DATA SHEET
+    // -----------------------------
+    const inputSheet = [
         ["INPUT DATA"],
         ["Shell Diameter (mm)", projectData.vessel.shellDiameter],
         ["Shell Length (mm)", projectData.vessel.shellLength],
@@ -618,11 +634,16 @@ function exportToExcel(projectData, resultData, breakdownModules) {
         ["Number of Nozzles", projectData.nozzles.number],
         ["Nozzle Size", projectData.nozzles.size],
         ["Support Type", projectData.supports.type],
-        ["Support Quantity", projectData.supports.quantity],
-        [""]
+        ["Support Quantity", projectData.supports.quantity]
     ];
 
-    const resultRows = [
+    const wsInput = XLSX.utils.aoa_to_sheet(inputSheet);
+    XLSX.utils.book_append_sheet(wb, wsInput, "Input Data");
+
+    // -----------------------------
+    // RESULTS SHEET
+    // -----------------------------
+    const resultSheet = [
         ["RESULTS"],
         ["Estimated Fabrication Hours", resultData.estimatedHours],
         ["Additional Fabrication Hours", resultData.additionalHours],
@@ -630,49 +651,41 @@ function exportToExcel(projectData, resultData, breakdownModules) {
         ["Estimated Workers", resultData.workers],
         ["Estimated Duration (days)", resultData.duration],
         ["Estimated Labour Cost", resultData.labourCost],
-        ["Estimated Total Cost", resultData.totalCost],
-        [""]
+        ["Estimated Total Cost", resultData.totalCost]
     ];
 
-    const breakdownHeader = [
-        ["DETAILED BREAKDOWN"],
+    const wsResult = XLSX.utils.aoa_to_sheet(resultSheet);
+    XLSX.utils.book_append_sheet(wb, wsResult, "Results");
+
+    // -----------------------------
+    // BREAKDOWN SHEET
+    // -----------------------------
+    const breakdownSheet = [
         ["Operation", "Quantity", "Unit", "Rate", "Hours", "%"]
     ];
 
-    const breakdownRows = breakdownModules.map(m => [
-        m.operation,
-        m.qty,
-        m.unit,
-        m.rate,
-        m.hours,
-        ((m.hours / resultData.totalHours) * 100).toFixed(1)
-    ]);
+    /* === FIXED: ADDED ZERO CHECK FOR DIVISION === */
+    const totalHours = resultData.totalHours || 1;
 
-    const allRows = [...inputRows, ...resultRows, ...breakdownHeader, ...breakdownRows];
-
-    const xml =
-        `<?xml version="1.0"?>
-        <worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
-            <sheetData>
-                ${sheet(allRows)}
-            </sheetData>
-        </worksheet>`;
-
-    const zip =
-        `PK\x03\x04` + xml; // minimal XLSX wrapper
-
-    const blob = new Blob([zip], {
-        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    breakdownModules.forEach(m => {
+        breakdownSheet.push([
+            m.operation,
+            m.qty,
+            m.unit,
+            m.rate,
+            m.hours,
+            ((m.hours / totalHours) * 100).toFixed(1)
+        ]);
     });
 
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "Fabrication_Estimate.xlsx";
-    a.click();
-    URL.revokeObjectURL(url);
-}
+    const wsBreakdown = XLSX.utils.aoa_to_sheet(breakdownSheet);
+    XLSX.utils.book_append_sheet(wb, wsBreakdown, "Breakdown");
 
+    // -----------------------------
+    // DOWNLOAD FILE
+    // -----------------------------
+    XLSX.writeFile(wb, "Fabrication_Estimate.xlsx");
+}
 
 /* ============================================================================
    INIT
