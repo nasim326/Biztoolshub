@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Industrial Painting & Blasting Productivity Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="painting-style.css" />
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="light-theme">
+  <header class="app-header">
+    <div class="logo-title">
+      <div class="logo-icon">PC</div>
+      <div>
+        <h1>Painting & Blasting Productivity Calculator</h1>
+        <p>Industrial Estimating Tool for EPC & Fabrication</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button id="toggleThemeBtn" class="btn btn-outline">Dark Mode</button>
+      <button id="resetFormBtn" class="btn btn-outline">Reset</button>
+      <input id="searchInput" type="search" placeholder="Search fields..." />
+    </div>
+  </header>
+
+  <main class="app-main">
+    <!-- INPUT PANEL -->
+    <section class="input-panel">
+      <!-- 1. PROJECT INFORMATION -->
+      <div class="card collapsible" data-section="project-info">
+        <div class="card-header">
+          <h2>1. Project Information</h2>
+          <button class="collapse-toggle">▼</button>
+        </div>
+        <div class="card-body">
+          <div class="form-grid">
+            <label>
+              Project Name
+              <input type="text" id="projectName" />
+            </label>
+            <label>
+              Project Number
+              <input type="text" id="projectNumber" />
+            </label>
+            <label>
+              Client
+              <input type="text" id="clientName" />
+            </label>
+            <label>
+              Location
+              <input type="text" id="projectLocation" />
+            </label>
+            <label>
+              Estimator
+              <input type="text" id="estimatorName" />
+            </label>
+            <label>
+              Date
+              <input type="date" id="estimateDate" />
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. EQUIPMENT TYPE -->
+      <div class="card collapsible" data-section="equipment-type">
+        <div class="card-header">
+          <h2>2. Equipment Type</h2>
+          <button class="collapse-toggle">▼</button>
+        </div>
+        <div class="card-body">
+          <label>
+            Equipment Type
+            <select id="equipmentType">
+              <option value="">Select...</option>
+              <option>Pressure Vessel</option>
+              <option>Storage Tank</option>
+              <option>Pipe Spool</option>
+              <option>Pipeline</option>
+              <option>Steel Structure</option>
+              <option>Column</option>
+              <option>Beam</option>
+              <option>Channel</option>
+              <option>Angle</option>
+              <option>Platform</option>
+              <option>Ladder</option>
+              <option>Stair</option>
+              <option>Skid</option>
+              <option>Miscellaneous Steel</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <!-- 3. SURFACE AREA -->
+      <div class="card collapsible" data-section="surface-area">
+        <div class="card-header">
+          <h2>3. Surface Area</h2>
+          <button class="collapse-toggle">▼</button>
+        </div>
+        <div class="card-body">
+          <label>
+            Calculation Method
+            <select id="surfaceCalcMethod">
+              <option value="manual">Manual Surface Area</option>
+              <option value="auto">Automatic Calculation</option>
+            </select>
+          </label>
+
+          <!-- Manual -->
+          <div id="manualSurfaceAreaGroup" class="form-group">
+            <label>
+              Surface Area (m²)
+              <input type="number" id="manualSurfaceArea" min="0" step="0.01" />
+            </label>
+          </div>
+
+          <!-- Automatic: dynamic dimension cards -->
+          <div id="autoSurfaceAreaGroup" class="form-group hidden">
+            <!-- Pressure Vessel -->
+            <div class="dimension-card" data-eq="Pressure Vessel">
+              <h3>Pressure Vessel Dimensions</h3>
+              <div class="form-grid">
+                <label>
+                  Diameter (m)
+                  <input type="number" id="pvDiameter" min="0" step="0.01" />
+                </label>
+                <label>
+                  Length (m)
+                  <input type="number" id="pvLength" min="0" step="0.01" />
+                </label>
+                <label>
+                  Number of Heads
+                  <input type="number" id="pvHeads" min="0" step="1" />
+                </label>
+                <label>
+                  Head Type
+                  <select id="pvHeadType">
+                    <option>Elliptical</option>
+                    <option>Hemispherical</option>
+                    <option>Flat</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+
+            <!-- Storage Tank -->
+            <div class="dimension-card" data-eq="Storage Tank">
+              <h3>Storage Tank Dimensions</h3>
+              <div class="form-grid">
+                <label>
+                  Diameter (m)
+                  <input type="number" id="stDiameter" min="0" step="0.01" />
+                </label>
+                <label>
+                  Height (m)
+                  <input type="number" id="stHeight" min="0" step="0.01" />
+                </label>
+                <label>
+                  Roof Type
+                  <select id="stRoofType">
+                    <option>Flat</option>
+                    <option>Conical</option>
+                    <option>Domed</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+
+            <!-- Pipe -->
+            <div class="dimension-card" data-eq="Pipe Spool" data-eq-alt="Pipeline">
+              <h3>Pipe / Pipeline Dimensions</h3>
+              <div class="form-grid">
+                <label>
+                  Outside Diameter (m)
+                  <input type="number" id="pipeOD" min="0" step="0.01" />
+                </label>
+                <label>
+                  Length (m)
+                  <input type="number" id="pipeLength" min="0" step="0.01" />
+                </label>
+                <label>
+                  Quantity
+                  <input type="number" id="pipeQty" min="1" step="1" />
+                </label>
+              </div>
+            </div>
+
+            <!-- Steel Structure by weight -->
+            <div class="dimension-card" data-eq="Steel Structure">
+              <h3>Steel Structure</h3>
+              <div class="form-grid">
+                <label>
+                  Total Weight (tons)
+                  <input type="number" id="ssWeight" min="0" step="0.01" />
+                </label>
+                <label>
+                  Painting Area Factor (m²/ton)
+                  <input type="number" id="ssAreaFactor" min="0" step="0.01" />
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. SURFACE PREPARATION -->
+      <div class="card collapsible" data-section="surface-prep">
+        <div class="card-header">
+          <h2>4. Surface Preparation</h2>
+          <button class="collapse-toggle">▼</button>
+        </div>
+        <div class="card-body">
+          <label>
+            Surface Condition
+            <select id="surfaceCondition">
+              <option>New Steel</option>
+              <option>Rust Grade A</option>
+              <option>Rust Grade B</option>
+              <option>Rust Grade C</option>
+              <option>Rust Grade D</option>
+            </select>
+          </label>
+          <label>
+            Surface Preparation Standard
+            <select id="surfacePrepStandard">
+              <option>SSPC-SP2</option>
+              <option>SSPC-SP3</option>
+              <option>SSPC-SP5</option>
+              <option>SSPC-SP6</option>
+              <option>SSPC-SP7</option>
+              <option>SSPC-SP10</option>
+              <option>SSPC-SP11</option>
+              <option>Sa1</option>
+              <option>Sa2</option>
+              <option>Sa2.5</option>
+              <option>Sa3</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <!-- 5. BLASTING -->
+      <div class="card collapsible" data-section="blasting">
+        <div class="card-header">
+          <h2>5. Blasting</h2>
+          <button class="collapse-toggle">▼</button>
+        </div>
+        <div class="card-body">
+          <label class="checkbox-inline">
+            <input type="checkbox" id="includeBlasting" />
+            Include Blasting
+          </label>
+
+          <div id="blastingDetails" class="form-group hidden">
+            <label>
+              Blasting Method
+              <select id="blastingMethod">
+                <option>Dry Abrasive</option>
+                <option>Wet Blasting</option>
+                <option>Shot Blasting</option>
+                <option>Grit Blasting</option>
+              </select>
+            </label>
+            <label>
+              Abrasive Type
+              <select id="abrasiveType">
+                <option>Garnet</option>
+                <option>Steel Grit</option>
+                <option>Steel Shot</option>
+                <option>Copper Slag</option>
+                <option>Coal Slag</option>
+                <option>Aluminium Oxide</option>
+              </select>
+            </label>
+            <label>
+              Blasting Productivity
+              <select id="blastingProductivity">
+                <option value="very-slow">Very Slow</option>
+                <option value="slow">Slow</option>
+                <option value="normal">Normal</option>
+                <option value="fast">Fast</option>
+                <option value="custom">Custom</option>
+              </select>
+            </label>
+            <label id="customBlastingProdGroup" class="hidden">
+              Custom Productivity (m²/hr)
+              <input type="number" id="customBlastingProd" min="0" step="0.01" />
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. PAINTING -->
+      <div class="card collapsible" data-section="painting">
+        <div class="card-header">
+          <h2>6. Painting</h2>
+          <button class="collapse-toggle">▼</button>
+        </div>
+        <div class="card-body">
+          <label class="checkbox-inline">
+            <input type="checkbox" id="includePainting" />
+            Include Painting
+          </label>
+
+          <div id="paintingDetails" class="form-group hidden">
+            <label>
+              Painting Method
+              <select id="paintingMethod">
+                <option>Airless Spray</option>
+                <option>Conventional Spray</option>
+                <option>Brush</option>
+                <option>Roller</option>
+                <option>Plural Component</option>
+              </select>
+            </label>
+
+            <div class="form-grid">
+              <label>
+                Primer Coats
+                <input type="number" id="primerCoats" min="0" step="1" />
+              </label>
+              <label>
+                Intermediate Coats
+                <input type="number" id="intermediateCoats" min="0" step="1" />
+              </label>
+              <label>
+                Finish Coats
+                <input type="number" id="finishCoats" min="0" step="1" />
+              </label>
+            </div>
+
+            <div class="form-grid">
+              <label>
+                DFT per Coat (µm)
+                <input type="number" id="dftPerCoat" min="0" step="1" />
+              </label>
+              <label>
+                Paint Transfer Efficiency
+                <select id="transferEfficiency">
+                  <option value="0.4">40%</option>
+                  <option value="0.5">50%</option>
+                  <option value="0.6">60%</option>
+                  <option value="0.7">70%</option>
+                  <option value="0.8">80%</option>
+                </select>
+              </label>
+              <label>
+                Paint Solid Volume (%)
+                <input type="number" id="solidVolume" min="0" max="100" step="1" />
+              </label>
+            </div>
+
+            <label>
+              Coverage Rate (optional, m²/L)
+              <input type="number" id="coverageRate" min="0" step="0.01" />
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. PRODUCTIVITY -->
+      <div class="card collapsible" data-section="productivity">
+        <div class="card-header">
+          <h2>7. Productivity</h2>
+          <button class="collapse-toggle">▼</button>
+        </div>
+        <div class="card-body">
+          <div class="form-grid">
+            <label>
+              Painters
+              <input type="number" id="painters" min="0" step="1" />
+            </label>
+            <label>
+              Blasters
+              <input type="number" id="blasters" min="0" step="1" />
+            </label>
+            <label>
+              Helpers
+              <input type="number" id="helpers" min="0" step="1" />
+            </label>
+          </div>
+
+          <label>
+            Working Hours per Day
+            <select id="hoursPerDay">
+              <option value="8">8</option>
+              <option value="10">10</option>
+              <option value="12">12</option>
+            </select>
+          </label>
+
+          <label>
+            Productivity Factor
+            <select id="productivityFactor">
+              <option value="0.7">70%</option>
+              <option value="0.8">80%</option>
+              <option value="0.9">90%</option>
+              <option value="1.0" selected>100%</option>
+              <option value="1.1">110%</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <!-- 8. WEATHER FACTOR -->
+      <div class="card collapsible" data-section="weather">
+        <div class="card-header">
+          <h2>8. Weather Factor</h2>
+          <button class="collapse-toggle">▼</button>
+        </div>
+        <div class="card-body">
+          <label class="checkbox-inline">
+            <input type="checkbox" id="includeWeather" />
+            Include Weather Adjustment
+          </label>
+
+          <div id="weatherDetails" class="form-group hidden">
+            <div class="form-grid">
+              <label>
+                Humidity (%)
+                <input type="number" id="humidity" min="0" max="100" step="1" />
+              </label>
+              <label>
+                Temperature (°C)
+                <input type="number" id="temperature" min="-20" max="60" step="1" />
+              </label>
+              <label>
+                Wind (m/s)
+                <input type="number" id="wind" min="0" step="0.1" />
+              </label>
+            </div>
+            <label>
+              Adjustment Factor
+              <input type="number" id="weatherFactor" min="0.5" max="1.5" step="0.01" />
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. COSTING -->
+      <div class="card collapsible" data-section="costing">
+        <div class="card-header">
+          <h2>9. Costing</h2>
+          <button class="collapse-toggle">▼</button>
+        </div>
+        <div class="card-body">
+          <div class="form-grid">
+            <label>
+              Labour Rate ($/hour)
+              <input type="number" id="labourRate" min="0" step="0.01" />
+            </label>
+            <label>
+              Paint Cost ($/Litre)
+              <input type="number" id="paintCost" min="0" step="0.01" />
+            </label>
+            <label>
+              Abrasive Cost ($/Ton)
+              <input type="number" id="abrasiveCost" min="0" step="0.01" />
+            </label>
+            <label>
+              Equipment Cost ($/Day)
+              <input type="number" id="equipmentCost" min="0" step="0.01" />
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="card actions-card">
+        <button id="calculateBtn" class="btn btn-primary">Calculate</button>
+        <button id="saveProjectBtn" class="btn btn-secondary">Save Project</button>
+        <button id="loadProjectBtn" class="btn btn-secondary">Load Project</button>
+      </div>
+    </section>
+
+    <!-- STICKY RESULT PANEL -->
+    <aside class="result-panel">
+      <h2>Results</h2>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <span>Total Surface Area (m²)</span>
+          <strong id="kpiSurfaceArea">0</strong>
+        </div>
+        <div class="kpi-card">
+          <span>Blasting Hours</span>
+          <strong id="kpiBlastingHours">0</strong>
+        </div>
+        <div class="kpi-card">
+          <span>Painting Hours</span>
+          <strong id="kpiPaintingHours">0</strong>
+        </div>
+        <div class="kpi-card">
+          <span>Total Man Hours</span>
+          <strong id="kpiManHours">0</strong>
+        </div>
+        <div class="kpi-card">
+          <span>Crew Required</span>
+          <strong id="kpiCrew">0</strong>
+        </div>
+        <div class="kpi-card">
+          <span>Estimated Duration (days)</span>
+          <strong id="kpiDuration">0</strong>
+        </div>
+        <div class="kpi-card">
+          <span>Paint Required (L)</span>
+          <strong id="kpiPaintQty">0</strong>
+        </div>
+        <div class="kpi-card">
+          <span>Abrasive Required (tons)</span>
+          <strong id="kpiAbrasiveQty">0</strong>
+        </div>
+        <div class="kpi-card">
+          <span>Paint Cost ($)</span>
+          <strong id="kpiPaintCost">0</strong>
+        </div>
+        <div class="kpi-card">
+          <span>Labour Cost ($)</span>
+          <strong id="kpiLabourCost">0</strong>
+        </div>
+        <div class="kpi-card">
+          <span>Equipment Cost ($)</span>
+          <strong id="kpiEquipmentCost">0</strong>
+        </div>
+        <div class="kpi-card">
+          <span>Total Estimated Cost ($)</span>
+          <strong id="kpiTotalCost">0</strong>
+        </div>
+      </div>
+
+      <!-- BREAKDOWN TABLE -->
+      <h3>Operation Breakdown</h3>
+      <table class="breakdown-table">
+        <thead>
+          <tr>
+            <th>Operation</th>
+            <th>Surface Area (m²)</th>
+            <th>Productivity (m²/hr)</th>
+            <th>Hours</th>
+            <th>Crew</th>
+            <th>Cost ($)</th>
+          </tr>
+        </thead>
+        <tbody id="breakdownBody">
+        </tbody>
+      </table>
+
+      <!-- MATERIAL CONSUMPTION -->
+      <h3>Material Consumption</h3>
+      <div class="material-grid">
+        <div>
+          <span>Primer Quantity (L)</span>
+          <strong id="matPrimer">0</strong>
+        </div>
+        <div>
+          <span>Intermediate Quantity (L)</span>
+          <strong id="matIntermediate">0</strong>
+        </div>
+        <div>
+          <span>Finish Quantity (L)</span>
+          <strong id="matFinish">0</strong>
+        </div>
+        <div>
+          <span>Total Paint (L)</span>
+          <strong id="matTotalPaint">0</strong>
+        </div>
+        <div>
+          <span>Abrasive Quantity (tons)</span>
+          <strong id="matAbrasive">0</strong>
+        </div>
+        <div>
+          <span>Paint Wastage (L)</span>
+          <strong id="matWastage">0</strong>
+        </div>
+        <div>
+          <span>Transfer Loss (L)</span>
+          <strong id="matTransferLoss">0</strong>
+        </div>
+      </div>
+
+      <!-- CHARTS -->
+      <div class="charts-section">
+        <h3>Charts</h3>
+        <canvas id="hoursChart"></canvas>
+        <canvas id="costChart"></canvas>
+        <canvas id="paintChart"></canvas>
+      </div>
+
+      <!-- EXPORT -->
+      <div class="export-actions">
+        <button id="printReportBtn" class="btn btn-outline">Print Report</button>
+        <button id="exportPdfBtn" class="btn btn-outline">Export PDF</button>
+        <button id="exportExcelBtn" class="btn btn-outline">Export Excel</button>
+        <button id="exportJsonBtn" class="btn btn-outline">Export JSON</button>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="app-footer">
+    <small>Industrial Coating Estimator • Based on SSPC / ISO / NACE / ASTM practices. Designed By Nasim Sarwar</small>
+  </footer>
+
+  <script src="painting-script.js"></script>
+</body>
+</html>
