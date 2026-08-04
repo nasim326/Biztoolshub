@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Issuance Transmittal Database</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- SheetJS -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+
+<body class="light">
+
+  <!-- ---------------------------------------------------------
+       LOGIN SCREEN (PIN)
+  --------------------------------------------------------- -->
+  <div id="loginScreen" class="login-screen">
+    <div class="login-box">
+      <h2>Access Required</h2>
+      <input type="password" id="accessKeyInput" placeholder="Enter PIN">
+      <button id="loginBtn">Login</button>
+      <p class="login-note">Or continue in Viewer Mode</p>
+      <button id="viewerBtn">Continue as Viewer</button>
+    </div>
+  </div>
+
+  <!-- ---------------------------------------------------------
+       MAIN APP
+  --------------------------------------------------------- -->
+  <div id="app">
+
+    <!-- ---------------------------------------------------------
+         SIDEBAR
+    --------------------------------------------------------- -->
+    <aside class="sidebar">
+      <div class="logo">Issuance Transmittal</div>
+      <nav>
+        <button class="nav-link active" data-view="dashboard">Dashboard</button>
+        <button class="nav-link" data-view="new-entry">New Entry</button>
+        <button class="nav-link" data-view="database">Database</button>
+        <button class="nav-link" data-view="settings">Settings</button>
+      </nav>
+    </aside>
+
+    <!-- ---------------------------------------------------------
+         MAIN CONTENT
+    --------------------------------------------------------- -->
+    <main class="main">
+
+      <!-- ---------------------------------------------------------
+           TOPBAR
+      --------------------------------------------------------- -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <h1>Steel Transmittal Database</h1>
+        </div>
+
+        <div class="topbar-right">
+          <input type="text" id="globalSearch" placeholder="Global search..." />
+          <button id="quickUnlockBtn">Unlock (PIN)</button>
+          <button id="toggleThemeBtn">Dark / Light</button>
+        </div>
+      </header>
+
+      <!-- ---------------------------------------------------------
+           DASHBOARD VIEW
+      --------------------------------------------------------- -->
+      <section id="view-dashboard" class="view active">
+        <div class="cards">
+          <div class="card">
+            <h3>Total Records</h3>
+            <p id="card-total-records">0</p>
+          </div>
+          <div class="card">
+            <h3>Today's Records</h3>
+            <p id="card-today-records">0</p>
+          </div>
+          <div class="card">
+            <h3>Total Batch Weight</h3>
+            <p id="card-total-weight">0.000</p>
+          </div>
+          <div class="card">
+            <h3>Latest Entry</h3>
+            <p id="card-latest-entry">—</p>
+          </div>
+        </div>
+
+<div class="dash-row">
+
+  <!-- Card 1: Current Month Issued - Handrail -->
+  <div class="dash-card" id="cardMonthIssuedHL">
+    <h3>Current Month Issued</h3>
+    <p id="dashMonthName"></p>
+    <h4>Handrail</h4>
+    <p>Issued Qty: <span id="hlIssuedQty"></span></p>
+    <p>Issued Weight: <span id="hlIssuedWeight"></span></p>
+  </div>
+
+  <!-- Card 2: Current Month Issued - Main Steel -->
+  <div class="dash-card" id="cardMonthIssuedMS">
+    <h3>Current Month Issued</h3>
+    <p id="dashMonthName2"></p>
+    <h4>Main Steel</h4>
+    <p>Issued Qty: <span id="msIssuedQty"></span></p>
+    <p>Issued Weight: <span id="msIssuedWeight"></span></p>
+  </div>
+
+  <!-- Card 3: Total Issuance Summary -->
+  <div class="dash-card" id="cardTotalIssuance">
+    <h3>Total Issuance</h3>
+
+    <div class="dash-two-col">
+      <div>
+        <h4>Received</h4>
+        <p>Handrail Qty: <span id="hlRecvQty"></span></p>
+        <p>Handrail Weight: <span id="hlRecvWeight"></span></p>
+        <p>Main Steel Qty: <span id="msRecvQty"></span></p>
+        <p>Main Steel Weight: <span id="msRecvWeight"></span></p>
+      </div>
+
+      <div>
+        <h4>Balance (Issued)</h4>
+        <p>Handrail Qty: <span id="hlBalQty"></span></p>
+        <p>Handrail Weight: <span id="hlBalWeight"></span></p>
+        <p>Main Steel Qty: <span id="msBalQty"></span></p>
+        <p>Main Steel Weight: <span id="msBalWeight"></span></p>
+      </div>
+    </div>
+  </div>
+
+</div>
+      </section>
+
+      <!-- ---------------------------------------------------------
+           NEW ENTRY VIEW
+      --------------------------------------------------------- -->
+      <section id="view-new-entry" class="view">
+        <div class="panel">
+          <h2>New Entry</h2>
+
+          <textarea id="pasteArea" placeholder="Paste Excel Data Here..." rows="10"></textarea>
+
+          <div class="btn-row">
+            <button id="btnConvert">Convert</button>
+            <button id="btnPreview">Preview</button>
+            <button id="btnSave">Save</button>
+            <button id="btnClear">Clear</button>
+          </div>
+
+          <div id="parseWarnings" class="warnings"></div>
+
+          <h3>Preview</h3>
+          <table class="table" id="previewTable">
+            <thead>
+              <tr>
+                <th>Work Order</th>
+                <th>Structure</th>
+                <th>Batch No</th>
+                <th>Transmittal No</th>
+                <th>Shop Transmittal No</th>
+                <th>Batch Weight</th>
+                <th>Status</th>
+                <th>Type</th>
+                <th>Received Date</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ---------------------------------------------------------
+           DATABASE VIEW
+      --------------------------------------------------------- -->
+      <section id="view-database" class="view">
+        <div class="panel">
+          <h2>Database</h2>
+
+          <div class="toolbar">
+            <input type="text" id="dbSearch" placeholder="Search..." />
+            <select id="dbFilter">
+              <option value="all">All</option>
+              <option value="today">Today</option>
+              <option value="week">This Week</option>
+              <option value="month">This Month</option>
+            </select>
+
+            <input type="date" id="dbCustomFrom" />
+            <input type="date" id="dbCustomTo" />
+            <button id="dbApplyCustom">Apply</button>
+
+            <button id="btnExportSelected">Export Selected</button>
+            <button id="btnExportAll">Export All</button>
+          </div>
+
+          <table class="table" id="dbTable">
+            <thead>
+              <tr>
+                <th><input type="checkbox" id="selectAll" /></th>
+                <th data-sort="id">ID</th>
+                <th data-sort="workOrder">Work Order</th>
+                <th data-sort="structure">Structure</th>
+                <th data-sort="batchNo">Batch No</th>
+                <th data-sort="transmittalNo">Transmittal No</th>
+                <th data-sort="shopTransmittalNo">Shop Transmittal No</th>
+                <th data-sort="batchWeight">Batch Weight</th>
+                <th data-sort="status">Status</th>
+                <th data-sort="type">Type</th>
+                <th data-sort="receivedDate">Received Date</th>
+		<th data-sort="extra1">Current Stage</th>
+		<th data-sort="extra2">Issued Date</th>
+		<th data-sort="extra3">MPS</th>
+		<th data-sort="extra4">Fab</th>
+		<th data-sort="extra5">QC</th>
+		<th data-sort="extra6">Proj</th>
+		<th data-sort="extra7">Remark</th>
+		<th data-sort="extra8">Plate IFS No's</th>
+		<th data-sort="extra9">Sec IFS No's</th>
+		<th data-sort="extra10">Drawings Managed By</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+
+          <div class="pagination">
+            <button id="pagePrev">Prev</button>
+            <span id="pageInfo"></span>
+            <button id="pageNext">Next</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------------------------------------------------------
+           SETTINGS VIEW
+      --------------------------------------------------------- -->
+      <section id="view-settings" class="view">
+        <div class="panel">
+          <h2>Settings</h2>
+
+          <div class="settings-group">
+            <h3>Appearance</h3>
+            <button id="settingsDark">Dark Mode</button>
+            <button id="settingsLight">Light Mode</button>
+          </div>
+
+          <div class="settings-group">
+            <h3>Database</h3>
+            <button id="btnBackup">Backup Database (JSON)</button>
+            <input type="file" id="restoreFile" accept="application/json" />
+            <button id="btnRestore">Restore Database</button>
+            <button id="btnClearDb">Clear Database</button>
+          </div>
+        </div>
+<div class="panel">
+  <h3>Old Data Import</h3>
+
+  <textarea id="oldDataArea" rows="10" placeholder="Paste old Excel rows here..."></textarea>
+
+  <div class="btn-row">
+    <button id="btnOldPreview">Preview Old Data</button>
+    <button id="btnOldDataStore">Old Data Store</button>
+  </div>
+
+  <div id="oldDataWarnings" class="warnings"></div>
+
+  <h3>Preview</h3>
+  <table class="table" id="oldPreviewTable">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+</div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ---------------------------------------------------------
+       TOAST
+  --------------------------------------------------------- -->
+  <div id="toast" class="toast"></div>
+
+  <!-- ---------------------------------------------------------
+       CONFIRM DIALOG
+  --------------------------------------------------------- -->
+  <div id="confirmDialog" class="dialog hidden">
+    <div class="dialog-content">
+      <p id="confirmMessage">Are you sure?</p>
+      <div class="dialog-actions">
+        <button id="confirmYes">Yes</button>
+        <button id="confirmNo">No</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------------------------------------------------------
+       LOADING OVERLAY
+  --------------------------------------------------------- -->
+  <div id="loadingOverlay" class="loading hidden">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- ---------------------------------------------------------
+       SCRIPTS
+  --------------------------------------------------------- -->
+  <script src="js/parser.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/excel.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
